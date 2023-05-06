@@ -50,7 +50,19 @@ PROMPT='%(?..%F{red}%?! %f)${vcs_info_msg_0_}%F{#8595ac}%n %F{#d1dded}%1~ %f%# '
 # 
 # make one yourself: `git init --bare ~/.notgit`
 # install on a new system: `git clone --bare ~/.notgit <url>`, `dots checkout --force` (will overwrite data!)
-alias dots="git --git-dir .notgit --work-tree ~"
+alias dots="git --git-dir ~/.notgit --work-tree ~"
+
+# fancy cat(1) https://github.com/sharkdp/bat
+alias bat="bat --theme=ansi --style=header,numbers,changes"
+# I hate pagers ...
+alias cat="bat --wrap=never --decorations=never --paging=never"
+
+tab() {
+    command tac $@ | bat --file-name $1
+}
+tac() {
+    command tac $@ | cat --file-name $1
+}
 
 # quicker cd'ing https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"

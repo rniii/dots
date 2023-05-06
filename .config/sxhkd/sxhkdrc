@@ -22,7 +22,7 @@ super + ctrl + {q,r}
     bspc {quit,wm -r}
 
 # close/kill
-super + {c,shift + k}
+super + {c,ctrl + k}
     bspc node -{c,k}
 
 # toggle monocle (fullscreen) layout

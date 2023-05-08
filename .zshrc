@@ -13,9 +13,6 @@ bindkey "^H"      backward-kill-word  # Ctrl+Backspace
 bindkey "^[[A"    up-line-or-search   # Up
 bindkey "^[[B"    down-line-or-search # Down
 
-# ok this one is silly. i cant type pipe characters on my kb layout and im too lazy to figure out
-bindkey -s "^[<" "|"
-
 # completion stuff
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'r:|[._-/]=* r:|=*'

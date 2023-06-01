@@ -9,9 +9,9 @@ super + p
 
 super + shift + comma
     playerctl previous
-super + shift + period
-    playerctl play-pause
 super + shift + slash
+    playerctl play-pause
+super + shift + period
     playerctl next
 
 super + Escape

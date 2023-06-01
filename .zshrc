@@ -42,6 +42,9 @@ precmd () {
 
 PROMPT='%(?..%F{red}%?! %f)${vcs_info_msg_0_}%F{#8595ac}%n %F{#d1dded}%1~ %f%# '
 
+eval $(dircolors)
+alias ls="ls --color=auto"
+
 # dotfiles management
 # this is basically the same as just making your ~ a git repo, but the actual git dir is moved as to not conflict with tools
 # 

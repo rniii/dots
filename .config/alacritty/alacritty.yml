@@ -9,6 +9,10 @@ font:
     bold_italic: { style: Regular }
     size: 8.0
 
+cursor:
+    style:
+        blinking: on
+
 colors:
     primary:
         background: "#202020"

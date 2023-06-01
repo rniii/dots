@@ -3,11 +3,11 @@ local lspconfig = require("lspconfig")
 local luasnip = require("luasnip")
 local caps = require("cmp_nvim_lsp").default_capabilities()
 
-for _, server in ipairs {"clojure_lsp", "rust_analyzer", "tsserver", "typeprof"} do
+for _, server in ipairs {"ccls", "clojure_lsp", "rust_analyzer", "tsserver"} do
     lspconfig[server].setup { capabilities = caps }
 end
 
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
     indent = { enable = true },
     autotag = { enable = true },
@@ -26,7 +26,7 @@ cmp.setup {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<CR>'] = cmp.mapping.confirm { select = true },
+        ['<CR>'] = cmp.mapping.confirm { select = false },
         ['<Tab>'] = cmp.mapping(function(fallback) 
             if cmp.visible() then
                 cmp.select_next_item()

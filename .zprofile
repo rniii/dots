@@ -19,6 +19,7 @@ export PNPM_HOME=~/.local/share/pnpm
 for i (
     ~/.local/bin
     ~/.local/share/gem/ruby/3.0.0/bin # is there rlly no way to get this programmatically
+    ~/.local/share/cargo/bin
     $PNPM_HOME
     $path
 ) {

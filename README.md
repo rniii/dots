@@ -1,8 +1,8 @@
 # dots
 
-dotfiles!! I'm trying to keep them very minimal
+![Screenshot of my desktop](sc.png "my desktop :3")
 
-## software used
+## stuff used
 
 - alacritty
 - bspwm

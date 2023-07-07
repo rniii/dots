@@ -1,6 +1,7 @@
 # dots
 
 ![Screenshot of my desktop](sc.png "my desktop :3")
+*(wallpaper by [cagelabyrinth](https://cagelabyrinth.tumblr.com) - [post on twitter](https://twitter.com/cagelabyrinth/status/1482451201728090112?s=20) / [media url](https://pbs.twimg.com/media/FJK5dsxaUAAMpht?format=jpg&name=large))*
 
 ## stuff used
 

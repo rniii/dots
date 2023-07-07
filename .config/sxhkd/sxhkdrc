@@ -1,7 +1,7 @@
 super + q
     alacritty
 super + d
-    rofi -show run
+    rofi -show combi -modes combi -combi-modes run,drun -combi-hide-mode-prefix
 super + o
     dunstctl close
 super + p

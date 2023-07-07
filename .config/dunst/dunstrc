@@ -2,13 +2,14 @@
 
 [global]
 width = (196, 512)
-transparency = 4
+transparency = 2
 frame_width = 2
 gap_size = 8
 font = "Sarasa Mono J"
-frame_color = "#d1dded"
-background = "#202020"
-foreground = "#c5c5c5"
+fullscreen = pushback
+background = "#151515"
+foreground = "#d8d0d5"
+frame_color = "#d895ee"
 icon_position = left
 min_icon_size = 48
 max_icon_size = 48

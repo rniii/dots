@@ -30,8 +30,8 @@ zle -N bracketed-paste bracketed-paste-magic
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '*'
 zstyle ':vcs_info:*' unstagedstr '!'
-zstyle ':vcs_info:*' formats '%F{#a7b0bd}(%b%u%c) '
-zstyle ':vcs_info:*' actionformats '%F{#a7b0bd}(%a %b%u%c) '
+zstyle ':vcs_info:*' formats '%F{#fbe8f5}(%b%u%c) '
+zstyle ':vcs_info:*' actionformats '%F{#fbe8f5}(%a %b%u%c) '
 zstyle ':vcs_info:*' branchformat '%b'
 
 autoload -Uz vcs_info
@@ -40,7 +40,7 @@ precmd () {
     vcs_info
 }
 
-PROMPT='%(?..%F{red}%?! %f)${vcs_info_msg_0_}%F{#8595ac}%n %F{#d1dded}%1~ %f%# '
+PROMPT='%(?..%F{red}%?! %f)${vcs_info_msg_0_}%F{#ee95d2}%n %F{#f5c0e4}%1~ %F{#fbe8f5}%# %f'
 
 eval $(dircolors)
 alias ls="ls --color=auto"

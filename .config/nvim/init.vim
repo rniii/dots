@@ -40,8 +40,8 @@ map <leader>gr <Cmd>Telescope lsp_references<CR>
 map <Leader>gi <Cmd>Telescope lsp_implementations<CR>
 map <Leader>gt <Cmd>Telescope lsp_type_definitions<CR>
 
-map <Leader>ll <Cmd>Telescope find_files<CR>
-map <Leader>lr <Cmd>Telescope live_grep<CR>
+map <Leader>l <Cmd>Telescope find_files<CR>
+map <Leader>p <Cmd>Telescope live_grep<CR>
 
 " source everything in init.d, an attempt to organise things
 " (and also bc calling lua from vim and vice-versa is always a bit awkward..

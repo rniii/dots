@@ -11,8 +11,8 @@ bspc config window_gap           8
 
 bspc config split_ratio          0.625
 
-bspc config normal_border_color  "#202020"
-bspc config active_border_color  "#202020"
-bspc config focused_border_color "#8595ac"
+bspc config normal_border_color  "#151515"
+bspc config active_border_color  "#151515"
+bspc config focused_border_color "#d895ee"
 
 bspc rule -a "layer=above" "border=off"

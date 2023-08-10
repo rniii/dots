@@ -1,3 +1,7 @@
+# cd into last dir (third item because subshell + current shell)
+local last_path=$(realpath /proc/${$(pidof zsh)[3]}/cwd)
+[ -d $last_path ] && cd $last_path
+
 setopt autocd promptsubst interactivecomments
 
 bindkey -e
@@ -16,22 +20,32 @@ bindkey "^[[B"    down-line-or-search # Down
 # completion stuff
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'r:|[._-/]=* r:|=*'
+zstyle ':completion:*' rehash true
 
 autoload -Uz compinit
 compinit
 
 # useful builtin modules
 autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
 autoload -U bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-# prompt stuff
+# ctrl-z to fg
+ctrl-z-fg() {
+    BUFFER="fg"
+    zle accept-line
+}
+zle -N ctrl-z-fg
+bindkey "^Z" ctrl-z-fg
 
+# prompt stuff
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '*'
 zstyle ':vcs_info:*' unstagedstr '!'
-zstyle ':vcs_info:*' formats '%F{#fbe8f5}(%b%u%c) '
-zstyle ':vcs_info:*' actionformats '%F{#fbe8f5}(%a %b%u%c) '
+zstyle ':vcs_info:*' formats '(%b%u%c) '
+zstyle ':vcs_info:*' actionformats '(%a %b%u%c) '
 zstyle ':vcs_info:*' branchformat '%b'
 
 autoload -Uz vcs_info
@@ -40,7 +54,10 @@ precmd () {
     vcs_info
 }
 
-PROMPT='%(?..%F{red}%?! %f)${vcs_info_msg_0_}%F{#ee95d2}%n %F{#f5c0e4}%1~ %F{#fbe8f5}%# %f'
+PS1='%F{#fbe8f5}${vcs_info_msg_0_}%F{#ee95d2}%n %F{#f5c0e4}%1~ %(?.%F{#fbe8f5}%#.%F{red}!) %f'
+RPS1='%(?..%F{8}%? :<)'
+
+PS2='%F{0}${vcs_info_msg_0_}%n %F{8}%1~ \ %f'
 
 eval $(dircolors)
 alias ls="ls --color=auto"

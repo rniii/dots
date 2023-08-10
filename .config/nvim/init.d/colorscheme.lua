@@ -31,7 +31,7 @@ require("catppuccin").setup {
               maroon = "#ee9598",
               teal = "#97d0e8",
               sky = "#97d0e8",
-              flamingo = "#ee95d2",
+              flamingo = "#e8d097",
         }
     }
 }

@@ -35,10 +35,12 @@ map <Leader>f <Plug>(ale_fix)
 map <Leader>a <Cmd>lua vim.lsp.buf.code_action()<CR>
 map <Leader>r <Cmd>lua vim.lsp.buf.rename()<CR>
 map <Leader>h <Cmd>lua vim.lsp.buf.hover()<CR>
+map <Leader>d <Cmd>lua vim.diagnostic.open_float()<CR>
 
 map <leader>gr <Cmd>Telescope lsp_references<CR>
 map <Leader>gi <Cmd>Telescope lsp_implementations<CR>
 map <Leader>gt <Cmd>Telescope lsp_type_definitions<CR>
+map <Leader>gd <Cmd>lua vim.diagnostic.goto_next()<CR>
 
 map <Leader>l <Cmd>Telescope find_files<CR>
 map <Leader>p <Cmd>Telescope live_grep<CR>

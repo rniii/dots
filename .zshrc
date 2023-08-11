@@ -71,7 +71,7 @@ alias dots="git --git-dir ~/.notgit --work-tree ~"
 alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
 # fancy cat(1) https://github.com/sharkdp/bat
-alias bat="bat --theme=ansi --style=header,numbers,changes"
+alias bat="bat --theme=base16 --style=header,numbers,changes"
 # I hate pagers ...
 alias cat="bat --wrap=never --decorations=never --paging=never"
 

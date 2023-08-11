@@ -11,14 +11,14 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 set scrolloff=2
@@ -27,6 +27,9 @@ set number relativenumber signcolumn=yes
 set smartcase ignorecase
 set completeopt=menuone,longest
 set foldmethod=expr foldexpr=nvim_treesitter#foldexpr() nofoldenable
+set noshowcmd
+
+set spell spelllang=en_gb
 
 let mapleader = ","
 

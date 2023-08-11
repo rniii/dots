@@ -17,6 +17,7 @@ xsetroot -cursor_name left_ptr &
 nitrogen --restore &
 picom &
 unclutter &
+cantata &
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 

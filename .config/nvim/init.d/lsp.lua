@@ -1,18 +1,22 @@
-local cmp = require("cmp")
-local lspconfig = require("lspconfig")
-local luasnip = require("luasnip")
-local caps = require("cmp_nvim_lsp").default_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-)
+local servers = {
+    "ccls",
+    "clojure_lsp",
+    "rust_analyzer",
+    "tsserver",
+}
 
 local settings = {
-    ['rust-analyzer'] = {
+    ["rust-analyzer"] = {
         check = { command = "clippy" },
         imports = { granularity = { enforce = true } },
     },
 }
 
-for _, server in ipairs {"ccls", "clojure_lsp", "rust_analyzer", "tsserver"} do
+local lspconfig = require("lspconfig")
+local caps = require("cmp_nvim_lsp").default_capabilities()
+
+
+for _, server in ipairs(servers) do
     lspconfig[server].setup { capabilities = caps, settings = settings }
 end
 
@@ -58,22 +62,23 @@ require("nvim-treesitter.configs").setup {
 
 require("nvim-autopairs").setup {}
 
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+
 cmp.event:on(
     "confirm_done",
     require("nvim-autopairs.completion.cmp").on_confirm_done()
 )
 
 cmp.setup {
-    snippet = { expand = function(args) luasnip.expand(args.body) end },
+    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
     mapping = {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<CR>'] = cmp.mapping.confirm {
-            behavior = "replace",
-            select = false,
-        },
-        ['<Tab>'] = cmp.mapping(function(fallback) 
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm(),
+        ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then

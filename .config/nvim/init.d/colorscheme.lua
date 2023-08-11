@@ -3,9 +3,8 @@ require("catppuccin").setup {
     color_overrides = {
         all = {
               base = "#151515",
-
-              crust = "#202020",
-              mantle = "#202020",
+              crust = "#151515",
+              mantle = "#151515",
 
               surface0 = "#404040",
               surface1 = "#404040",
@@ -37,4 +36,12 @@ require("catppuccin").setup {
 }
 
 vim.cmd "colorscheme catppuccin"
-vim.g.airline_theme = "monochrome"
+
+vim.g.airline_theme = "catppuccin"
+vim.g.airline_detect_spell = 0
+vim.g.airline_symbols = {
+    branch = "",
+    linenr = " ",
+    maxlinenr = "",
+    colnr = ":"
+}

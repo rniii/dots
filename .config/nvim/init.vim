@@ -19,7 +19,69 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
+Plug 'andweeb/presence.nvim'
 call plug#end()
+
+let g:presence_neovim_image_text = 'the editor for trans catgirls'
+let g:presence_main_image = 'file'
+let g:presence_file_assets = {}
+
+for name in [
+\       'Astro',
+\       'C',
+\       ['cpp', ['C++', 'cpp']],
+\       ['cxx', ['C++', 'cpp']],
+\       ['cc', ['C++', 'cpp']],
+\       ['Cargo.toml', ['Cargo.toml', 'cargo']],
+\       ['Cargo.lock', ['Cargo.lock', 'cargo']],
+\       ['clj', 'Clojure'],
+\       ['edn', 'Clojure'],
+\       'CSS',
+\       'D',
+\       ['.eslintrc.json', 'ESLint'],
+\       'Gemfile',
+\       ['.gitignore', 'git'],
+\       'Go',
+\       'HTML',
+\       ['js', ['JavaScript', 'js']],
+\       'JSON',
+\       'JSX',
+\       ['kt', 'Kotlin'],
+\       'Lisp',
+\       ['cl', 'Lisp'],
+\       ['l', 'Lisp'],
+\       ['lsp', 'Lisp'],
+\       'Lua',
+\       ['md', 'Markdown'],
+\       ['py', 'Python'],
+\       ['rb', 'Ruby'],
+\       ['rs', 'Rust'],
+\       'SCSS',
+\       ['sass', 'SCSS'],
+\       'Svelte',
+\       'SVG',
+\       'TOML',
+\       ['ts', ['TypeScript', 'ts']],
+\       'TSX',
+\       ['.zlogin', ['zsh', 'shell']],
+\       ['.zprofile', ['zsh', 'shell']],
+\       ['.zshenv', ['zsh', 'shell']],
+\       ['.zshrc', ['zsh', 'shell']],
+\ ]
+    if type(name) == v:t_string
+        let key = name->tolower()
+        let file = key
+    else
+        let [key, name] = name
+        if type(name) == v:t_string
+            let file = name->tolower()
+        else
+            let [name, file] = name
+        endif
+    endif
+
+    let g:presence_file_assets[key] = [name, 'https://raw.githubusercontent.com/leonardssh/vscord/main/assets/icons/' .. file .. '.png']
+endfor
 
 set scrolloff=2
 set expandtab shiftwidth=4

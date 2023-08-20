@@ -75,6 +75,8 @@ alias bat="bat --theme=base16 --style=header,numbers,changes"
 # I hate pagers ...
 alias cat="bat --wrap=never --decorations=never --paging=never"
 
+alias ssh="TERM=xterm-256color ssh"
+
 tab() {
     command tac $@ | bat --file-name $1
 }

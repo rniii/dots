@@ -1,6 +1,7 @@
 local servers = {
     "ccls",
     "clojure_lsp",
+    "emmet_ls",
     "rust_analyzer",
     "tsserver",
 }
@@ -15,12 +16,16 @@ local settings = {
 local lspconfig = require("lspconfig")
 local caps = require("cmp_nvim_lsp").default_capabilities()
 
-
 for _, server in ipairs(servers) do
     lspconfig[server].setup { capabilities = caps, settings = settings }
 end
 
+local function noop() end
+
 local function requests(name, get_params, cb)
+    get_params = get_params or noop
+    cb = cb or noop
+
     return function()
         vim.lsp.buf_request_all(0, name, get_params(), function(res)
             for _, r in ipairs(res) do
@@ -41,6 +46,14 @@ vim.keymap.set("n", "<Leader>re", requests(
     end
 ))
 
+vim.api.nvim_create_user_command("ReloadWorkspace", requests(
+    "rust-analyzer/reloadWorkspace"
+), {})
+
+vim.api.nvim_create_user_command("RebuildProcMacros", requests(
+    "rust-analyzer/reloadWorkspace"
+), {})
+
 vim.keymap.set("n", "<Leader>gp", requests(
     "experimental/parentModule", vim.lsp.util.make_position_params,
     function(r)
@@ -59,6 +72,14 @@ require("nvim-treesitter.configs").setup {
     indent = { enable = true },
     autotag = { enable = true },
 }
+
+-- shut up
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "htmldjango",
+    callback = function()
+        vim.o.filetype = "html"
+    end
+})
 
 require("nvim-autopairs").setup {}
 

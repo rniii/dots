@@ -5,15 +5,12 @@ window:
 font:
     normal:
         family: Sarasa Term J
-    bold:
-        family: Sarasa Term J
-        style: Regular
     italic:
         family: Sarasa Term J
         style: Regular
     bold_italic:
         family: Sarasa Term J
-        style: Regular
+        style: Bold
     size: 8.0
 
 cursor:

@@ -45,3 +45,11 @@ vim.g.airline_symbols = {
     maxlinenr = "",
     colnr = ":"
 }
+
+vim.cmd [[
+au TextYankPost * silent! lua vim.highlight.on_yank { higroup = "Visual" }
+
+hi IlluminatedWordText guibg=#303030
+hi IlluminatedWordRead guibg=#303030
+hi IlluminatedWordWrite guibg=#303030
+]]

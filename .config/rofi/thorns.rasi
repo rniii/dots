@@ -1,0 +1,43 @@
+* {
+    color: #d8d0d5;
+    background-color: #151515;
+    spacing: 0;
+}
+
+inputbar {
+    children: [entry, prompt];
+}
+
+entry {
+    placeholder: "type";
+    placeholder-color: #909090;
+    background-color: #181818;
+    padding: 0 1ch;
+}
+
+prompt {
+    color: #151515;
+    background-color: #d895ee;
+    padding: 0 1ch;
+}
+
+element {
+    padding: 0 1ch;
+}
+
+element-text {
+    highlight: none;
+}
+
+element.alternate,
+element-text.alternate {
+    background-color: #181818;
+}
+
+element.selected,
+element-text.selected {
+    color: #151515;
+    background-color: #d895ee;
+}
+
+// vim:ft=rasi

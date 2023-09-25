@@ -21,7 +21,7 @@ let g:ale_linters.json = ['jq']
 
 for lang in ['typescript', 'javascript', 'typescriptreact', 'javascriptreact']
     let g:ale_fixers[lang] = ['eslint', 'dprint']
-    let g:ale_linters[lang] = ['eslint']
+    let g:ale_linters[lang] = []
 endfor
 
 for lang in ['html', 'scss', 'css', 'yaml']

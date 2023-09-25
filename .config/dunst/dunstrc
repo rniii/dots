@@ -14,3 +14,4 @@ icon_position = left
 min_icon_size = 48
 max_icon_size = 48
 timeout = 0
+show_age_threshold = -1

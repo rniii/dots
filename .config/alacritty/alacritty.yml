@@ -1,5 +1,5 @@
 window:
-    padding: { x: 2, y: 2 }
+    padding: { x: 4, y: 4 }
     opacity: 0.98
 
 font:

@@ -1,0 +1,9 @@
+@theme "thorns"
+
+configuration {
+    modes: "combi,window,run,drun";
+    combi-modes: "run,drun";
+    font: "Sarasa Term J 14";
+    terminal: "alacritty";
+    combi-hide-mode-prefix: true;
+}

@@ -1,7 +1,7 @@
 super + q
     alacritty
 super + d
-    rofi -show combi -modes combi -combi-modes run,drun -combi-hide-mode-prefix
+    rofi -show combi
 super + o
     dunstctl close
 super + p
@@ -61,3 +61,6 @@ super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 super + alt + shift + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+super + alt + shift + ctrl + l
+    firefox www.linkedin.com

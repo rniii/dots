@@ -1,15 +1,28 @@
+require("faye").setup()
+
 local servers = {
     "ccls",
     "clojure_lsp",
-    "emmet_ls",
+    "emmet_language_server",
+    "faye_lsp",
     "rust_analyzer",
+    "taplo",
     "tsserver",
+    -- vscode-langservers-extracted
+    "cssls",
+    "eslint",
+    "jsonls",
+    "html",
 }
 
 local settings = {
     ["rust-analyzer"] = {
         check = { command = "clippy" },
         imports = { granularity = { enforce = true } },
+    },
+    json = {
+        schemas = require("schemastore").json.schemas(),
+        validate = { enable = true },
     },
 }
 
@@ -99,11 +112,23 @@ cmp.setup {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm(),
+        ['<C-j>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable() then
+                luasnip.jump()
+            else
+                fallback()
+            end
+        end),
+        ['<C-k>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
             else
                 fallback()
             end
@@ -111,16 +136,16 @@ cmp.setup {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
             else
                 fallback()
             end
         end, { 'i', 's' }),
     },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "buffer" },
-    },
+    sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
+}
+
+require("fidget").setup {
+    text = { spinner = "noise" },
+    window = { blend = 0 },
+    fmt = { max_dith = 32 },
 }

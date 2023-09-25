@@ -1,12 +1,19 @@
 call plug#begin()
-Plug 'dense-analysis/ale'
+Plug '~/git/faye.nvim'
 Plug 'neovim/nvim-lspconfig'
+
+Plug 'dense-analysis/ale'
 " SO MANY SNIPPET PLUGINS AAAAA
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'b0o/schemastore.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'RRethy/vim-illuminate'
+Plug 'sheerun/vim-polyglot'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
@@ -90,8 +97,6 @@ set smartcase ignorecase
 set completeopt=menuone,longest
 set foldmethod=expr foldexpr=nvim_treesitter#foldexpr() nofoldenable
 set noshowcmd
-
-set spell spelllang=en_gb
 
 let mapleader = ","
 

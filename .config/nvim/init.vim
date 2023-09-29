@@ -1,31 +1,35 @@
 call plug#begin()
-Plug '~/git/faye.nvim'
+" lsp
 Plug 'neovim/nvim-lspconfig'
-
-Plug 'dense-analysis/ale'
-" SO MANY SNIPPET PLUGINS AAAAA
+Plug '~/git/faye.nvim'
+Plug 'b0o/schemastore.nvim'
+" completion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-Plug 'b0o/schemastore.nvim'
+" highlighting
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'RRethy/vim-illuminate'
 Plug 'sheerun/vim-polyglot'
-Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
-
-Plug 'vim-airline/vim-airline'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-
+Plug 'RRethy/vim-illuminate'
+" editing stuff
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
+" linting
+Plug 'dense-analysis/ale'
+" theme stuff
+Plug 'vim-airline/vim-airline'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+" bloat
+Plug 'justinmk/vim-dirvish' " I HATE NETRW I HATE NETRW I HATE
+Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'andweeb/presence.nvim'
 call plug#end()
 

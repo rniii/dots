@@ -68,6 +68,7 @@ alias ls="ls --color=auto"
 # make one yourself: `git init --bare ~/.notgit`
 # install on a new system: `git clone --bare ~/.notgit <url>`, `dots checkout --force` (will overwrite data!)
 alias dots="git --git-dir ~/.notgit --work-tree ~"
+alias qots="GIT_DIR=~/.notgit GIT_WORK_TREE=~ qit"
 alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
 # fancy cat(1) https://github.com/sharkdp/bat

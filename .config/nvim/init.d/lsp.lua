@@ -33,17 +33,12 @@ for _, server in ipairs(servers) do
     lspconfig[server].setup { capabilities = caps, settings = settings }
 end
 
-local function noop() end
-
 local function requests(name, get_params, cb)
-    get_params = get_params or noop
-    cb = cb or noop
-
     return function()
-        vim.lsp.buf_request_all(0, name, get_params(), function(res)
+        vim.lsp.buf_request_all(0, name, get_params and get_params(), function(res)
             for _, r in ipairs(res) do
                 if r ~= nil and r.result ~= nil then
-                    cb(r.result)
+                    if cb then cb(r.result) end
                     break
                 end
             end
@@ -143,6 +138,8 @@ cmp.setup {
     },
     sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
 }
+
+require("gitsigns").setup {}
 
 require("fidget").setup {
     text = { spinner = "noise" },

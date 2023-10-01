@@ -8,6 +8,7 @@ local servers = {
     "rust_analyzer",
     "taplo",
     "tsserver",
+    "zls",
     -- vscode-langservers-extracted
     "cssls",
     "eslint",
@@ -80,6 +81,18 @@ require("nvim-treesitter.configs").setup {
     indent = { enable = true },
     autotag = { enable = true },
 }
+
+local injection = [[
+(call_expression
+    function: ((identifier) @_name (#eq? @_name "re"))
+    arguments: ((template_string) @injection.content
+        (#offset! @injection.content 0 1 0 -1)
+        (#set! injection.language "javascript")))
+]]
+
+local query = require("vim.treesitter.query")
+query.set("typescript", "injections", injection)
+query.set("tsx", "injections", injection)
 
 -- shut up
 vim.api.nvim_create_autocmd("FileType", {

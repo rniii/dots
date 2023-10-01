@@ -24,6 +24,7 @@ Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 " bloat
+Plug 'goolord/alpha-nvim'
 Plug 'justinmk/vim-dirvish' " I HATE NETRW I HATE NETRW I HATE
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'

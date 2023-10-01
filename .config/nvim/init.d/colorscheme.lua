@@ -53,3 +53,95 @@ hi IlluminatedWordText guibg=#303030
 hi IlluminatedWordRead guibg=#303030
 hi IlluminatedWordWrite guibg=#303030
 ]]
+
+require("illuminate").configure {
+    providers = {"lsp", "treesitter"}
+}
+
+local function button(sc, text, keybind, opts)
+    return {
+        type = "button",
+        val = text,
+        on_press = function()
+            vim.api.nvim_feedkeys(sc, "t", false)
+        end,
+        opts = vim.tbl_extend("keep", opts or {}, {
+            shortcut = "  [" .. sc .. "] ",
+            cursor = 3,
+            align_shortcut = "left",
+            hl = hl,
+            hl_shortcut = {{"Delimiter", 0, 3}, {"Macro", 3, #sc + 3}, {"Delimiter", #sc + 3, #sc + 4}},
+            keymap = { "n", sc, keybind, { noremap = true, silent = true, nowait = true } },
+        })
+    }
+end
+
+local function file_button(fn, sc)
+    return button(sc, fn, "<cmd>e " .. vim.fn.fnameescape(fn) .. " <CR>", {
+        hl = {{"Comment", 0, #vim.fn.fnamemodify(fn, ":h") + 1 }}
+    })
+end
+
+local function mru(start, cwd)
+    local elements = {}
+    for _, v in pairs(vim.v.oldfiles) do
+        if #elements == 5 then
+            break
+        end
+
+        if not cwd or vim.startswith(v, cwd .. "/") and (vim.fn.filereadable(v) == 1) and not vim.endswith(v, "COMMIT_EDITMSG") then
+            table.insert(
+                elements,
+                file_button(
+                    vim.fn.fnamemodify(v, cwd and ":." or ":~"),
+                    tostring(#elements + start)
+                )
+            )
+        end
+    end
+
+    return elements
+end
+
+require("alpha").setup {
+    layout = {
+        { type = "padding", val = 1 },
+        {
+            type = "text",
+            val = function()
+                return {
+                    "█",
+                    "█ ♡ " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":~"),
+                    "█"
+                }
+            end,
+            opts = {
+                hl = {
+                    {{"SpecialComment", 0, 4}},
+                    {{"SpecialComment", 0, 4}},
+                    {{"SpecialComment", 0, 4}},
+                }
+            },
+        },
+        { type = "padding", val = 1 },
+        { type = "group", val = function() return mru(0, vim.fn.getcwd()) end },
+        { type = "padding", val = 1 },
+        { type = "text", val = "▒ recent files" },
+        { type = "padding", val = 1 },
+        { type = "group", val = function() return mru(5) end },
+        { type = "padding", val = 1 },
+        button("i", "new file", ":ene | star <CR>"),
+        button("q", "quit", ":q"),
+    },
+    opts = {
+        margin = 1,
+        redraw_on_resize = false,
+        setup = function()
+            vim.api.nvim_create_autocmd('DirChanged', {
+                pattern = '*',
+                group = "alpha_temp",
+                callback = function() require('alpha').redraw() end,
+            })
+        end,
+    },
+}

@@ -8,6 +8,10 @@ inputbar {
     children: [entry, prompt];
 }
 
+message {
+    padding: 0 1ch;
+}
+
 entry {
     placeholder: "type";
     placeholder-color: #909090;

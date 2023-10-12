@@ -76,9 +76,11 @@ local function button(sc, text, keybind, opts)
     }
 end
 
-local function file_button(fn, sc)
+local function file_button(fn, sc) 
+    local dir = vim.fn.fnamemodify(fn, ":h")
+
     return button(sc, fn, "<cmd>e " .. vim.fn.fnameescape(fn) .. " <CR>", {
-        hl = {{"Comment", 0, #vim.fn.fnamemodify(fn, ":h") + 1 }}
+        hl = {{"Comment", 0, dir ~= "." and #dir + 1 or 0 }}
     })
 end
 

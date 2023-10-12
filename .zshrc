@@ -50,7 +50,7 @@ zstyle ':vcs_info:*' branchformat '%b'
 
 autoload -Uz vcs_info
 
-precmd () {
+precmd() {
     vcs_info
 }
 

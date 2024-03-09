@@ -1,29 +1,58 @@
 require("faye").setup()
+-- require("lspconfig.configs").uiua_lsp = {
+--     default_config = {
+--         cmd = {"uiua", "lsp"},
+--         filetypes = {"uiua"},
+--         single_file_support = true,
+--     }
+-- }
+
+-- vim.cmd [[
+-- augroup filetypedetect
+--     au! BufRead,BufNewFile *.ua setf uiua
+-- augroup END
+-- ]]
 
 local servers = {
-    "ccls",
-    "clojure_lsp",
-    "emmet_language_server",
-    "faye_lsp",
-    "rust_analyzer",
-    "taplo",
-    "tsserver",
-    "zls",
-    -- vscode-langservers-extracted
-    "cssls",
-    "eslint",
-    "jsonls",
-    "html",
+    "ccls",                   -- C
+    "clojure_lsp",            -- Clojure
+    "faye_lsp",               -- Faye
+    "elmls",                  -- Elm
+    "emmet_language_server",  -- HTML (Emmet abbrevs)
+    "erlangls",               -- Erlang
+    "hls",                    -- Haskell
+    "ocamllsp",               -- OCaml
+    "purescriptls",           -- Purescript
+    "rust_analyzer",          -- Rust
+    "taplo",                  -- TOML
+    "tsserver",               -- TS/JS
+    "wgsl_analyzer",          -- WGSL shaders
+    "zls",                    -- Zig
+    -- snitched from vscode
+    "cssls",    -- CSS
+    "eslint",   -- TS/JS (eslint)
+    "jsonls",   -- JSON
+    "html",     -- HTML
 }
 
 local settings = {
-    ["rust-analyzer"] = {
-        check = { command = "clippy" },
-        imports = { granularity = { enforce = true } },
+    haskell = {
+        plugin = {
+            stan = { globalOn = false } -- SHUT UP
+        }
     },
     json = {
         schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
+    },
+    ["rust-analyzer"] = {
+        check = { command = "clippy" },
+        imports = {
+            granularity = {
+                group = "module",
+                enforce = true,
+            },
+        },
     },
 }
 
@@ -99,6 +128,13 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "htmldjango",
     callback = function()
         vim.o.filetype = "html"
+    end
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "ocaml",
+    callback = function()
+        vim.cmd ":TSDisable indent"
     end
 })
 

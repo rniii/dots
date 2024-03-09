@@ -15,9 +15,11 @@ Plug 'RRethy/vim-illuminate'
 " editing stuff
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 " linting
 Plug 'dense-analysis/ale'
 " theme stuff
@@ -29,7 +31,7 @@ Plug 'justinmk/vim-dirvish' " I HATE NETRW I HATE NETRW I HATE
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'andweeb/presence.nvim'
 call plug#end()
@@ -50,10 +52,13 @@ for name in [
 \       ['edn', 'Clojure'],
 \       'CSS',
 \       'D',
+\       'Elm',
+\       'Erlang',
 \       ['.eslintrc.json', 'ESLint'],
 \       'Gemfile',
 \       ['.gitignore', 'git'],
 \       'Go',
+\       ['hs', 'Haskell'],
 \       'HTML',
 \       ['js', ['JavaScript', 'js']],
 \       'JSON',
@@ -65,9 +70,11 @@ for name in [
 \       ['lsp', 'Lisp'],
 \       'Lua',
 \       ['md', 'Markdown'],
+\       ['ml', 'OCaml'],
 \       ['py', 'Python'],
 \       ['rb', 'Ruby'],
 \       ['rs', 'Rust'],
+\       ['purs', "Purescript"],
 \       'SCSS',
 \       ['sass', 'SCSS'],
 \       'Svelte',
@@ -96,7 +103,7 @@ for name in [
 endfor
 
 set scrolloff=2
-set expandtab shiftwidth=4
+set expandtab
 set number relativenumber signcolumn=yes
 set smartcase ignorecase
 set completeopt=menuone,longest

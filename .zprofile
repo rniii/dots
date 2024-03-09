@@ -9,6 +9,8 @@ export LESSHISTFILE=- # idrc
 export NPM_CONFIG_CACHE=~/.cache/npm # ~/.npm
 export NODE_REPL_HISTORY=~/.local/share/node/history # ~/.node_repl_history
 export TS_NODE_HISTORY=$NODE_REPL_HISTORY # ~/.ts_node_repl_history (yeah, diff syntax.. I don't really mind)
+export GHCUP_USE_XDG_DIRS=y # WHAT THE UFKC
+export STACK_XDG=y # WHAT
 
 # clojure acknowledges $XDG_* but doesn't use the fallback paths ??? https://clojure.org/reference/deps_and_cli#_environment_variables
 export CLJ_CONFIG=~/.config/clojure
@@ -27,3 +29,5 @@ for i (
         path=($i $path)
     }
 }
+
+eval "$(opam env)"

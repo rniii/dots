@@ -6,6 +6,8 @@ super + o
     dunstctl close
 super + p
     flameshot gui
+super + 0
+    pkill ffmpeg
 
 super + shift + comma
     playerctl previous

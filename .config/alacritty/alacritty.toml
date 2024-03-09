@@ -1,0 +1,47 @@
+[font]
+size = 12.0
+
+[font.bold_italic]
+family = "Sarasa Term J"
+style = "Bold"
+
+[font.italic]
+family = "Sarasa Term J"
+style = "Regular"
+
+[font.normal]
+family = "Sarasa Term J"
+
+[window]
+opacity = 0.98
+padding = { x = 4, y = 4 }
+
+[cursor.style]
+blinking = "On"
+
+[colors]
+transparent_background_colors = true
+
+[colors.primary]
+background = "#151515"
+foreground = "#d8d0d5"
+
+[colors.bright]
+black = "#909090"
+blue = "#979ae8"
+cyan = "#97d0e8"
+green = "#9be099"
+magenta = "#ca97e8"
+red = "#ee9598"
+white = "#fcf0f8"
+yellow = "#e8d097"
+
+[colors.normal]
+black = "#404040"
+blue = "#979ae8"
+cyan = "#97d0e8"
+green = "#9be099"
+magenta = "#ca97e8"
+red = "#ee9598"
+white = "#fcf0f8"
+yellow = "#e8d097"

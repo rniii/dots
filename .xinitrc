@@ -15,6 +15,7 @@ export XMODIFIERS=@im=fcitx
 
 xsetroot -cursor_name left_ptr &
 nitrogen --restore &
+systembus-notify &
 picom &
 unclutter &
 cantata &

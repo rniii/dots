@@ -1,5 +1,6 @@
 let g:ale_disable_lsp = 1
 let g:ale_use_neovim_diagnostics_api = 1
+let g:ale_dprint_use_global = 1
 
 let g:ale_fixers = {}
 let g:ale_linters = {}
@@ -10,13 +11,13 @@ for [lang, fmt] in [
 \   ['markdown', ['pandoc']],
 \   ['ocaml', ['ocamlformat']],
 \   ['reason', ['refmt']],
+\   ['ruby', ['rubocop']],
 \   ['rust', ['rustfmt']],
 \ ]
     let g:ale_fixers[lang] = fmt
     let g:ale_linters[lang] = []
 endfor
 
-let g:ale_linters.ruby = ['ruby']
 let g:ale_linters.lua = ['luac']
 let g:ale_linters.json = ['jq']
 let g:ale_fixers.json = ['prettier']
@@ -33,5 +34,3 @@ for lang in ['html', 'scss', 'css', 'yaml']
     let g:ale_fixers[lang] = ['prettier']
     let g:ale_linters[lang] = []
 endfor
-
-let g:ale_javascript_prettier_options = '--tab-width 4'

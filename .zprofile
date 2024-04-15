@@ -18,11 +18,13 @@ export CLJ_CACHE=~/.cache/clojure
 
 export PNPM_HOME=~/.local/share/pnpm
 
+export GEM_HOME="$(gem env user_gemhome)"
+
 for i (
     ~/.local/bin
-    ~/.local/share/gem/ruby/3.0.0/bin # is there rlly no way to get this programmatically
     ~/.local/share/cargo/bin
     $PNPM_HOME
+    $GEM_HOME/bin
     $path
 ) {
     if ((! $path[(Ie)$i])) {

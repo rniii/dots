@@ -1,122 +1,108 @@
 require("faye").setup()
--- require("lspconfig.configs").uiua_lsp = {
---     default_config = {
---         cmd = {"uiua", "lsp"},
---         filetypes = {"uiua"},
---         single_file_support = true,
---     }
--- }
-
--- vim.cmd [[
--- augroup filetypedetect
---     au! BufRead,BufNewFile *.ua setf uiua
--- augroup END
--- ]]
 
 local servers = {
-    "ccls",                   -- C
-    "clojure_lsp",            -- Clojure
-    "faye_lsp",               -- Faye
-    "elmls",                  -- Elm
-    "emmet_language_server",  -- HTML (Emmet abbrevs)
-    "erlangls",               -- Erlang
-    "hls",                    -- Haskell
-    "ocamllsp",               -- OCaml
-    "purescriptls",           -- Purescript
-    "rust_analyzer",          -- Rust
-    "taplo",                  -- TOML
-    "tsserver",               -- TS/JS
-    "wgsl_analyzer",          -- WGSL shaders
-    "zls",                    -- Zig
-    -- snitched from vscode
-    "cssls",    -- CSS
-    "eslint",   -- TS/JS (eslint)
-    "jsonls",   -- JSON
-    "html",     -- HTML
+  "ccls",                   -- C
+  "clojure_lsp",            -- Clojure
+  "crystalline",            -- Crystal
+  "faye_lsp",               -- Faye
+  "elmls",                  -- Elm
+  "emmet_language_server",  -- HTML (Emmet abbrevs)
+  "erlangls",               -- Erlang
+  "hls",                    -- Haskell
+  "ocamllsp",               -- OCaml
+  "purescriptls",           -- Purescript
+  "solargraph",             -- Ruby
+  -- "ruby_ls",
+  "rust_analyzer",          -- Rust
+  "taplo",                  -- TOML
+  "tsserver",               -- TS/JS
+  "wgsl_analyzer",          -- WGSL shaders
+  "zls",                    -- Zig
+  -- snitched from vscode
+  "cssls",    -- CSS
+  "eslint",   -- TS/JS (eslint)
+  "jsonls",   -- JSON
+  "html",     -- HTML
 }
 
 local settings = {
-    haskell = {
-        plugin = {
-            stan = { globalOn = false } -- SHUT UP
-        }
+  haskell = {
+    plugin = {
+      stan = { globalOn = false }, -- SHUT UP
+    }
+  },
+  json = {
+    schemas = require("schemastore").json.schemas(),
+    validate = { enable = true },
+  },
+  ["rust-analyzer"] = {
+    check = { command = "clippy" },
+    imports = {
+      granularity = { group = "module", enforce = true },
     },
-    json = {
-        schemas = require("schemastore").json.schemas(),
-        validate = { enable = true },
-    },
-    ["rust-analyzer"] = {
-        check = { command = "clippy" },
-        imports = {
-            granularity = {
-                group = "module",
-                enforce = true,
-            },
-        },
-    },
+  },
 }
 
 local lspconfig = require("lspconfig")
 local caps = require("cmp_nvim_lsp").default_capabilities()
 
 for _, server in ipairs(servers) do
-    lspconfig[server].setup { capabilities = caps, settings = settings }
+  lspconfig[server].setup { capabilities = caps, settings = settings }
 end
 
 local function requests(name, get_params, cb)
-    return function()
-        vim.lsp.buf_request_all(0, name, get_params and get_params(), function(res)
-            for _, r in ipairs(res) do
-                if r ~= nil and r.result ~= nil then
-                    if cb then cb(r.result) end
-                    break
-                end
-            end
-        end)
-    end
+  return function()
+    vim.lsp.buf_request_all(0, name, get_params and get_params(), function(res)
+      for _, r in ipairs(res) do
+        if r ~= nil and r.result ~= nil then
+          if cb then cb(r.result) end
+          break
+        end
+      end
+    end)
+  end
 end
 
 vim.keymap.set("n", "<Leader>re", requests(
-    "rust-analyzer/expandMacro", vim.lsp.util.make_position_params,
-    function(r)
-        local text = "// " .. r.name .. "\n" .. r.expansion
-        vim.lsp.util.open_floating_preview(vim.split(text, "\n"), "rust")
-    end
+  "rust-analyzer/expandMacro", vim.lsp.util.make_position_params,
+  function(r)
+    local text = "// " .. r.name .. "\n" .. r.expansion
+    vim.lsp.util.open_floating_preview(vim.split(text, "\n"), "rust")
+  end
 ))
 
 vim.api.nvim_create_user_command("ReloadWorkspace", requests(
-    "rust-analyzer/reloadWorkspace"
+  "rust-analyzer/reloadWorkspace"
 ), {})
 
 vim.api.nvim_create_user_command("RebuildProcMacros", requests(
-    "rust-analyzer/reloadWorkspace"
+  "rust-analyzer/reloadWorkspace"
 ), {})
 
 vim.keymap.set("n", "<Leader>gp", requests(
-    "experimental/parentModule", vim.lsp.util.make_position_params,
-    function(r)
-        vim.lsp.util.jump_to_location(r[1], "utf-8", true)
-    end
+  "experimental/parentModule", vim.lsp.util.make_position_params,
+  function(r)
+    vim.lsp.util.jump_to_location(r[1], "utf-8", true)
+  end
 ))
 
 vim.diagnostic.config {
-    virtual_text = { prefix = "･" },
-    float = { prefix = function (d) return d.source .. " " end },
-    severity_sort = true,
+  virtual_text = { prefix = "･" },
+  float = { prefix = function (d) return d.source .. " " end },
+  severity_sort = true,
 }
 
 require("nvim-treesitter.configs").setup {
-    highlight = { enable = true },
-    indent = { enable = true },
-    autotag = { enable = true },
+  highlight = { enable = true },
+  autotag = { enable = true },
 }
 
 local injection = [[
 (call_expression
-    function: ((identifier) @_name (#eq? @_name "re"))
-    arguments: ((template_string) @injection.content
-        (#offset! @injection.content 0 1 0 -1)
-        (#set! injection.language "javascript")))
+  function: ((identifier) @_name (#eq? @_name "re"))
+  arguments: ((template_string) @injection.content
+  (#offset! @injection.content 0 1 0 -1)
+  (#set! injection.language "javascript")))
 ]]
 
 local query = require("vim.treesitter.query")
@@ -125,20 +111,17 @@ query.set("tsx", "injections", injection)
 
 -- shut up
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "htmldjango",
-    callback = function()
-        vim.o.filetype = "html"
-    end
+  pattern = "htmldjango",
+  callback = function() vim.o.filetype = "html" end
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "ocaml",
-    callback = function()
-        vim.cmd ":TSDisable indent"
-    end
-})
+vim.treesitter.language.register("ruby", "crystal")
 
-require("nvim-autopairs").setup {}
+local npairs = require("nvim-autopairs")
+
+npairs.setup {}
+npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")

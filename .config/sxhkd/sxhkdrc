@@ -24,7 +24,7 @@ super + ctrl + {q,r}
     bspc {quit,wm -r}
 
 # close/kill
-super + {c,ctrl + k}
+super + {c,ctrl + c}
     bspc node -{c,k}
 
 # toggle monocle (fullscreen) layout
@@ -57,6 +57,9 @@ super + Tab
 # focus desktop by number
 super + {_,shift + }{1-9}
     bspc {desktop -f,node -d} '^{1-9}'
+
+super + ctrl + {h,j,k,l}
+    bspc node -p {west,south,north,east} -o 0.5
 
 # resize window
 super + alt + {h,j,k,l}

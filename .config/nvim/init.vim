@@ -12,6 +12,7 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sheerun/vim-polyglot'
 Plug 'RRethy/vim-illuminate'
+Plug 'wuelnerdotexe/vim-astro'
 " editing stuff
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'

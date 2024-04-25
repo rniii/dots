@@ -73,8 +73,8 @@ alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
 # fancy cat(1) https://github.com/sharkdp/bat
 alias bat="bat --theme=ansi --style=header,numbers,changes"
-# I hate pagers ...
-alias cat="bat --wrap=never --decorations=never --paging=never"
+alias cat="bat -pp"
+alias -g -- --help='--help 2>&1 | bat -pplhelp'
 
 alias ssh="TERM=xterm-256color ssh"
 

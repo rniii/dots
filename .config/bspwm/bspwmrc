@@ -7,8 +7,9 @@ pgrep -x polybar >/dev/null || polybar cat -q &
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 
-bspc config window_gap  8
-bspc config split_ratio 0.625
+bspc config window_gap    8
+bspc config border_width  0
+bspc config split_ratio   0.625
 
 bspc rule -a "layer=above" "border=off"
 

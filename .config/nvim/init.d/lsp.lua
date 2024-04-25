@@ -1,6 +1,7 @@
 require("faye").setup()
 
 local servers = {
+  "astro",                  -- Astro
   "ccls",                   -- C
   "clojure_lsp",            -- Clojure
   "crystalline",            -- Crystal

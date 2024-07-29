@@ -13,7 +13,7 @@ style = "Regular"
 family = "Sarasa Term J"
 
 [window]
-opacity = 0.96
+opacity = 0.98
 padding = { x = 4, y = 4 }
 
 [cursor.style]
@@ -23,7 +23,7 @@ blinking = "On"
 transparent_background_colors = true
 
 [colors.primary]
-background = "#151515"
+background = "#121212"
 foreground = "#d8d0d5"
 
 [colors.bright]

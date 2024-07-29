@@ -2,6 +2,8 @@ super + q
     alacritty
 super + d
     rofi -show combi
+super + shift + d
+    rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command "echo -n '\{result\}' | xclip -selection clipboard"
 super + o
     dunstctl close
 super + p
@@ -32,8 +34,8 @@ super + m
     bspc desktop -l next
 
 # set layout
-super + {t,shift + t,f}
-    bspc node -t {tiled,pseudo_tiled,fullscreen}
+super + {t,shift + t,f,shift + f}
+    bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
 
 super + ctrl + {s,p}
     bspc node -g {sticky,private}

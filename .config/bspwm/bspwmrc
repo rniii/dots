@@ -4,7 +4,9 @@ pgrep -x sxhkd >/dev/null || sxhkd &
 pgrep -x polybar >/dev/null || polybar cat -q &
 
 fcitx5 -d &
-[ -f ~/.xkeymap ] && (sleep 5 && xkbcomp ~/.xkeymap $DISPLAY)&
+[ -f ~/.xkeymap ] && (sleep 5 && xkbcomp ~/.xkeymap "$DISPLAY")&
+xsetwacom set "Wacom Intuos S Pen stylus" Area 0 475 15200 9025
+xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key +ctrl z -ctrl"
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 

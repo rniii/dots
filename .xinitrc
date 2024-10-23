@@ -19,6 +19,7 @@ systembus-notify &
 picom &
 unclutter &
 cantata &
+dunst &
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 

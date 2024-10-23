@@ -1,6 +1,9 @@
 export EDITOR=$(which nvim)
 export VISUAL=$EDITOR
 
+# malware
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # Every time a software uses a non-XDG path, a little kitty sneezes TWICE
 export PIPX_HOME=~/.local/share/pipx # ~/.local/pipx ... pure evil
 export CARGO_HOME=~/.local/share/cargo # ~/.cargo
@@ -22,6 +25,7 @@ export GEM_HOME="$(gem env user_gemhome)"
 for i (
     ~/.local/bin
     ~/.local/share/cargo/bin
+    ~/.dotnet/tools
     $PNPM_HOME
     $GEM_HOME/bin
     $path

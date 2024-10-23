@@ -1,0 +1,17 @@
+:seti -w -XOverloadedStrings
+:set +m
+
+:{
+prompt p ms _ =
+  return $ mconcat
+    [ "\ESC[38;2;216;149;238m\STX" <> "ghci"
+    , " \ESC[38;2;232;164;254m\STX" <> head ms
+    , " \ESC[38;2;251;232;245m\STX" <> p
+    , " \ESC[m\STX"]
+:}
+:set prompt-function prompt ">>"
+:set prompt-cont-function prompt " \\"
+
+:def! hoogle return . (":!hoogle -q --count=5 --color " ++) . (("'" ++) . (++ "'"))
+
+:set +t

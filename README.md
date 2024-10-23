@@ -1,45 +1,39 @@
-# dots
+# Dedodated files
 
-![Screenshot of my desktop](sc.png "my desktop :3")
-*(wallpaper by [cagelabyrinth](https://cagelabyrinth.tumblr.com) - [post on twitter](https://twitter.com/cagelabyrinth/status/1482451201728090112?s=20) / [media url](https://pbs.twimg.com/media/FJK5dsxaUAAMpht?format=jpg&name=large))*
+![Screenshot of my desktop](sc.png)
 
-## stuff used
+## Software
 
-- alacritty
-- bspwm
-- dunst
-- neovim
-- picom
-- polybar
-- rofi (unconfigured for now)
-- sxhkd
-- zsh
+- Desktop: `bspwm`, `sxhkd`, `picom`, `polybar`, `dunst`
+- Apps: `alacritty`, `rofi`, `neovim`, `zsh`, `mpd`
 
-## management
+Some stuff referenced in the dotfiles:
 
-my dotfiles are managed by creating a bare git repo at `~/.notgit` with the work tree being the home dir:
+- WM: `fcitx` (IME), `nitrogen` (wallpaper), `unclutter` (hide mouse)
+- Apps: `cantata` (MPD client), `flameshot` (screenshots)
+- A lot more probably. You can go through [my packages](pkglist.txt)
 
-```zsh
-alias dots="git --git-dir .notgit --work-tree ~"
-```
+## Installation
 
-this can be easily setup by running `git init --bare ~/.notgit` and putting the alias in your shell's rc
+Probably you won't want to steal all my files outright, but feel free to. It's probably not even
+copyrightable, but it's all under CC0 anyway.
 
-optionally:
+Dotfiles are managed by git directly, but to avoid tools from exploding by scanning your whole home
+directory thinking its a normal repository, the `.git` directory is renamed to `.notgit`:
 
-- run `dots config status.showUntrackedFiles no` (avoids cluttering `dots status`)
-- use a `.notgit/info/exclude` like this:
+    git init --bare ~/.notgit
 
-  ```gitignore
-  /*
-  !.config
-  !.local/bin
-  !.xinitrc
-  !.zlogin
-  !.zprofile
-  !.zshrc
-  ```
+You can use that command to create your own dotfiles repo. Adding and commiting files works as
+usual, with some options added:
 
-then, to use the repo on a new machine, you can simply set the alias and run `dots clone --bare .notgit`, followed by `dots checkout` and a lil conflict resolving (or be chaotic and use `--force`, overwriting data)
+    alias dots="git --git-dir .notgit --work-tree ~"
 
-it's a neat trick I've seen others do! no symlink spaghetti needed, or any special tooling
+Easy right? Some other useful commands:
+
+    # make git ignore non-commited files
+    echo "*" > ~/.notgit/info/exclude
+    dots config status.showUntrackedFiles
+
+    # do this if you'd like to remove a file but keep it in the repo
+    rm ~/README.md
+    dots update-index --assume-unchanged ~/README.md    # gaslighting :)

@@ -45,12 +45,12 @@ vim.cmd[[
 set scrolloff=2
 set expandtab
 set number relativenumber signcolumn=yes
+set cursorline cursorlineopt=line
 set smartcase ignorecase
 set completeopt=menuone,longest
 set foldmethod=expr foldexpr=nvim_treesitter#foldexpr() nofoldenable
 set noshowcmd
 set undofile sessionoptions+=globals
-set nowrap winwidth=110
 
 let mapleader = ","
 let filetype_i = "nasm"

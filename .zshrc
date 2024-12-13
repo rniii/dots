@@ -50,7 +50,12 @@ zstyle ':vcs_info:*' branchformat '%b'
 
 autoload -Uz vcs_info
 
+preexec() {
+    printf "\e]2;%s\a" "$1"
+}
+
 precmd() {
+    print -Pn "\e]2;zsh (%~)\a"
     vcs_info
 }
 

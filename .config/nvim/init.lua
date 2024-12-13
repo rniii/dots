@@ -30,6 +30,7 @@ require "paq" {
   "Bekaboo/dropbar.nvim",
   "nvim-tree/nvim-web-devicons",
   "lewis6991/satellite.nvim",
+  "brenoprata10/nvim-highlight-colors",
   -- bloat
   "justinmk/vim-dirvish", -- I HATE NETRW I HATE NETRW I HATE
   "tpope/vim-fugitive",
@@ -48,12 +49,16 @@ set number relativenumber signcolumn=yes
 set cursorline cursorlineopt=line
 set smartcase ignorecase
 set completeopt=menuone,longest
-set foldmethod=expr foldexpr=nvim_treesitter#foldexpr() nofoldenable
+set foldmethod=marker nofoldenable
 set noshowcmd
 set undofile sessionoptions+=globals
+set textwidth=100 colorcolumn=81,+1
+set title titlestring=%t%(\ (%{fnamemodify(getcwd(),\":~\")})%)%(\ -\ nvim%)
 
 let mapleader = ","
 let filetype_i = "nasm"
+
+map <Space> za
 
 map <Leader>f <Plug>(ale_fix)
 
@@ -104,7 +109,8 @@ for [lang, fmt] in [
 \   ['typescript', 'dprint'],
 \   ['typescriptreact', 'dprint'],
 \   ['vue', 'prettier'],
-\   ['yaml', 'prettier']
+\   ['yaml', 'prettier'],
+\   ['zig', 'zigfmt']
 \ ]
     let g:ale_fixers[lang] = [fmt]
     let g:ale_linters[lang] = []
@@ -127,38 +133,45 @@ require("nvim-web-devicons").setup {
 }
 
 require("catppuccin").setup {
-  color_overrides = {
-    all = {
-      base = "#121212",
-      crust = "#181818",
-      mantle = "#181818",
-
-      surface0 = "#181818",
-      surface1 = "#404040",
-      surface2 = "#404040",
-      overlay0 = "#909090",
-      overlay1 = "#909090",
-      overlay2 = "#909090",
-
-      text = "#d8d0d5",
-      subtext0 = "#d8d0d5",
-      subtext1 = "#d8d0d5",
-
-      blue = "#979ae8",
-      green = "#9be099",
-      yellow = "#e8d097",
-      red = "#ee9598",
-      pink = "#ee95d2",
-      mauve = "#ca97e8",
-      lavender = "#979ae8",
-      sapphire = "#97d0e8",
-      peach = "#ee95d2",
-      rosewater = "#d895ee",
-      maroon = "#ee9598",
-      teal = "#97d0e8",
-      sky = "#97d0e8",
-      flamingo = "#e8d097",
+  flavour = "mocha",
+  custom_highlights = function (colors)
+    return {
+      IlluminatedWordText = { bg = colors.surface2 },
+      IlluminatedWordRead = { bg = colors.surface2 },
+      IlluminatedWordWrite = { bg = colors.surface2 },
     }
+  end,
+  color_overrides = {
+    mocha = {
+      base      = "#121212",  crust     = "#181818",
+      mantle    = "#181818",  surface0  = "#181818",
+      surface1  = "#303030",  surface2  = "#303030",
+      overlay0  = "#909090",  overlay1  = "#909090",
+      overlay2  = "#909090",  text      = "#d8d0d5",
+      subtext0  = "#d8d0d5",  subtext1  = "#d8d0d5",
+      pink      = "#ee95d2",  peach     = "#ee95d2",
+      red       = "#ee9598",  maroon    = "#ee9598",
+      flamingo  = "#e8d097",  yellow    = "#e8d097",
+      green     = "#9be099",  teal      = "#97d0e8",
+      sky       = "#97d0e8",  sapphire  = "#97d0e8",
+      blue      = "#979ae8",  lavender  = "#979ae8",
+      mauve     = "#ca97e8",  rosewater = "#d895ee",
+    },
+    latte = {
+      base      = "#f3f7f7",  crust     = "#e6eded",
+      mantle    = "#e6eded",  surface0  = "#e6eded",
+      surface1  = "#a0a4a4",  surface2  = "#a0a4a4",
+      overlay0  = "#909191",  overlay1  = "#909191",
+      overlay2  = "#606363",  text      = "#1e1f1f",
+      subtext0  = "#1e1f1f",  subtext1  = "#1e1f1f",
+      pink      = "#d96fb8",  peach     = "#d96fb8",
+      red       = "#de525e",  maroon    = "#de525e",
+      flamingo  = "#e3ac24",  yellow    = "#e3ac24",
+      green     = "#5bca55",  teal      = "#5bb4c2",
+      sky       = "#5bb4c2",  sapphire  = "#5bb4c2",
+      blue      = "#4e76e0",  lavender  = "#4e76e0",
+      mauve     = "#a448d9",  rosewater = "#a448d9",
+    },
   },
 }
 
@@ -170,7 +183,7 @@ local function diff_source()
     return {
       added = gitsigns.added,
       modified = gitsigns.changed,
-      removed = gitsigns.removed
+      removed = gitsigns.removed,
     }
   end
 end
@@ -211,15 +224,13 @@ vim.cmd [[
 colorscheme catppuccin
 
 au TextYankPost * silent! lua vim.highlight.on_yank { higroup = "Visual" }
-
-hi IlluminatedWordText guibg=#303030
-hi IlluminatedWordRead guibg=#303030
-hi IlluminatedWordWrite guibg=#303030
 ]]
 
 require("illuminate").configure {
   providers = {"lsp", "treesitter"}
 }
+
+require("nvim-highlight-colors").setup {}
 
 ----- lsp ---------------------------------------------------------------------
 

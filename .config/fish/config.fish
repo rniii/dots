@@ -50,7 +50,7 @@ end
 
 if status is-interactive
   # drop back to last directory
-  if set -l lastpid (pidof /bin/fish | string split " ")[-4]
+  if set -l lastpid (pidof /bin/fish | string split " ")[3]; and test -n $lastpid
     cd (realpath /proc/$lastpid/cwd 2>/dev/null)
   end
 
@@ -58,13 +58,12 @@ if status is-interactive
   bind \cz 'fg 2>/dev/null; commandline -f repaint'
 
   alias dots="git --git-dir ~/.notgit --work-tree ~"
-  alias qots="GIT_DIR=~/.notgit GIT_WORK_TREE=~ qit"
   alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
-  alias bat="bat --theme=ansi --style=header,numbers,changes"
-  alias cat="bat -pp"
+  alias bat="command bat --theme=ansi --style=header,numbers,changes"
+  alias cat="command bat -pp"
 
-  alias ssh="TERM=xterm-256color ssh"
+  alias ssh="TERM=xterm-256color command ssh"
 
   eval "$(dircolors --csh)"
   eval "$(zoxide init fish)"

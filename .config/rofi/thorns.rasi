@@ -1,45 +1,42 @@
 * {
     color: #d8d0d5;
-    background-color: #151515;
     spacing: 0;
+    background-color: transparent;
+}
+
+window {
+    anchor: north;
+    location: north;
+    width: 88ch;
+    y-offset: 8;
+    background-color: #181818;
 }
 
 inputbar {
-    children: [entry, prompt];
+    children: [entry];
 }
 
 message {
-    padding: 0 1ch;
+    padding: 5 2ch 4;
 }
 
 entry {
-    placeholder: "type";
+    placeholder: "Search…";
     placeholder-color: #909090;
-    background-color: #181818;
-    padding: 0 1ch;
-}
-
-prompt {
-    color: #151515;
-    background-color: #d895ee;
-    padding: 0 1ch;
+    padding: 5 2ch 4;
 }
 
 element {
-    padding: 0 1ch;
+    padding: 5 2ch 4;
 }
 
 element-text {
     highlight: none;
 }
 
-element.alternate,
-element-text.alternate {
-    background-color: #181818;
-}
-
 element.selected,
-element-text.selected {
+element-text.selected,
+element-icon.selected {
     color: #151515;
     background-color: #d895ee;
 }

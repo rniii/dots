@@ -7,3 +7,5 @@ configuration {
     terminal: "alacritty";
     combi-hide-mode-prefix: true;
 }
+
+// vim:ft=rasi

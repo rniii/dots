@@ -49,6 +49,9 @@ function fish_title
 end
 
 if status is-interactive
+  set -gx BAT_THEME ansi
+  set -gx BAT_STYLE header,numbers,changes
+
   # drop back to last directory
   if set -l lastpid (pidof /bin/fish | string split " ")[3]; and test -n $lastpid
     cd (realpath /proc/$lastpid/cwd 2>/dev/null)
@@ -60,7 +63,6 @@ if status is-interactive
   alias dots="git --git-dir ~/.notgit --work-tree ~"
   alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
-  alias bat="command bat --theme=ansi --style=header,numbers,changes"
   alias cat="command bat -pp"
 
   alias ssh="TERM=xterm-256color command ssh"
@@ -80,6 +82,7 @@ if status is-login
   set -gx PIPX_HOME           ~/.local/share/pipx
   set -gx CARGO_HOME          ~/.local/share/cargo
   set -gx W3M_DIR             ~/.local/share/w3m
+  set -gx ZIG_LIB_DIR         ~/.local/lib/zig
   set -gx CLJ_CONFIG          ~/.config/clojure
   set -gx CLJ_CACHE           ~/.cache/clojure
   set -gx NPM_CONFIG_CACHE    ~/.cache/npm

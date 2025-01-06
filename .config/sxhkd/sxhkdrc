@@ -34,7 +34,7 @@ super + m
     bspc desktop -l next
 
 # set layout
-super + {t,shift + t,f,shift + f}
+super + {t,r,f,g}
     bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
 
 super + ctrl + {s,p}

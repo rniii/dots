@@ -60,9 +60,6 @@ super + Tab
 super + {_,shift + }{1-9}
     bspc {desktop -f,node -d} '^{1-9}'
 
-super + ctrl + {h,j,k,l}
-    bspc node -p {west,south,north,east} -o 0.5
-
 # resize window
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}

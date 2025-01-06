@@ -2,6 +2,10 @@
 
 pgrep -x sxhkd >/dev/null || sxhkd &
 pgrep -x polybar >/dev/null || polybar cat -q &
+pkill -x conky >/dev/null
+
+conky --config ~/.config/conky/conky.conf
+conky --config ~/.config/conky/cal.conf
 
 fcitx5 -d &
 [ -f ~/.xkeymap ] && (sleep 5 && xkbcomp ~/.xkeymap "$DISPLAY")&
@@ -10,9 +14,10 @@ xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key +ctrl z -ctrl"
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 
-bspc config window_gap    8
-bspc config border_width  0
-bspc config split_ratio   0.625
+bspc config window_gap        8
+bspc config border_width      0
+bspc config split_ratio       0.625
+bspc config honor_size_hints  true
 
 bspc rule -a "layer=above" "border=off"
 

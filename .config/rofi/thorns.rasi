@@ -17,17 +17,17 @@ inputbar {
 }
 
 message {
-    padding: 5 2ch 4;
+    padding: 5 2ch;
 }
 
 entry {
     placeholder: "Search…";
     placeholder-color: #909090;
-    padding: 5 2ch 4;
+    padding: 5 2ch;
 }
 
 element {
-    padding: 5 2ch 4;
+    padding: 5 2ch;
 }
 
 element-text {

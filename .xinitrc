@@ -1,5 +1,4 @@
 #!/bin/sh
-
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
     for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
         [ -x "$f" ] && . "$f"
@@ -15,12 +14,12 @@ export XMODIFIERS=@im=fcitx
 
 xsetroot -cursor_name left_ptr &
 light -G &
-nitrogen --restore &
 systembus-notify &
 picom &
 unclutter &
-cantata &
 dunst &
+lxsession &
+(sleep 2 && nitrogen --restore) &
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 

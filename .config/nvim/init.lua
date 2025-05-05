@@ -13,6 +13,7 @@ require "paq" {
   "sheerun/vim-polyglot",
   "RRethy/vim-illuminate",
   "wuelnerdotexe/vim-astro",
+  "Apeiros-46B/uiua.vim",
   -- editing stuff
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
@@ -21,6 +22,7 @@ require "paq" {
   "tpope/vim-rsi",
   "tpope/vim-surround",
   "tpope/vim-sleuth",
+  "junegunn/vim-easy-align",
   -- linting
   "dense-analysis/ale",
   -- theme stuff
@@ -32,28 +34,30 @@ require "paq" {
   "lewis6991/satellite.nvim",
   "brenoprata10/nvim-highlight-colors",
   -- bloat
-  "justinmk/vim-dirvish", -- I HATE NETRW I HATE NETRW I HATE
+  "akinsho/toggleterm.nvim",
+  "justinmk/vim-dirvish",
   "tpope/vim-fugitive",
   "tpope/vim-afterimage",
   "lewis6991/gitsigns.nvim",
   "nvim-lua/plenary.nvim",
   { "nvim-telescope/telescope.nvim", branch = "0.1.x" },
-  { "j-hui/fidget.nvim", branch = "legacy" },
+  "j-hui/fidget.nvim",
   "Shatur/neovim-session-manager",
+  "lukas-reineke/headlines.nvim",
 }
 
 vim.cmd[[
-set scrolloff=2
+set scrolloff=2 nowrap sidescrolloff=20
 set expandtab
 set number relativenumber signcolumn=yes
 set cursorline cursorlineopt=line
 set smartcase ignorecase
 set completeopt=menuone,longest
 set foldmethod=marker nofoldenable
-set noshowcmd
 set undofile sessionoptions+=globals
 set textwidth=100 colorcolumn=81,+1
 set title titlestring=%t%(\ (%{fnamemodify(getcwd(),\":~\")})%)%(\ -\ nvim%)
+set list listchars=extends:>,precedes:<,tab:\ \ ,trail:•
 
 let mapleader = ","
 let filetype_i = "nasm"
@@ -79,6 +83,15 @@ map gb <Cmd>BufferLinePick<CR>
 map <C-k> <Cmd>BufferLineCyclePrev<CR>
 map <C-j> <Cmd>BufferLineCycleNext<CR>
 
+nmap ga <Plug>(EasyAlign)
+vmap ga <Plug>(EasyAlign)
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-w>h <C-\><C-N><C-w>h
+tnoremap <C-w>j <C-\><C-N><C-w>j
+tnoremap <C-w>k <C-\><C-N><C-w>k
+tnoremap <C-w>l <C-\><C-N><C-w>l
+
 autocmd FileType cpp setlocal commentstring=//\ %s
 
 let g:ale_disable_lsp = 1
@@ -97,22 +110,24 @@ for [lang, fmt] in [
 \   ['go', 'gofmt'],
 \   ['haskell', 'fourmolu'],
 \   ['html', 'prettier'],
-\   ['javascript', 'dprint'],
-\   ['javascriptreact', 'dprint'],
 \   ['lua', 'stylua'],
 \   ['markdown', 'pandoc'],
 \   ['ocaml', 'ocamlformat'],
+\   ['python', 'black'],
 \   ['reason', 'refmt'],
 \   ['ruby', 'rubocop'],
 \   ['rust', 'rustfmt'],
 \   ['scss', 'prettier'],
-\   ['typescript', 'dprint'],
-\   ['typescriptreact', 'dprint'],
 \   ['vue', 'prettier'],
 \   ['yaml', 'prettier'],
 \   ['zig', 'zigfmt']
 \ ]
     let g:ale_fixers[lang] = [fmt]
+    let g:ale_linters[lang] = []
+endfor
+
+for lang in ['javascript', 'javascriptreact', 'typescript', 'typescriptreact']
+    let g:ale_fixers[lang] = ['dprint', 'eslint']
     let g:ale_linters[lang] = []
 endfor
 
@@ -132,13 +147,47 @@ require("nvim-web-devicons").setup {
   color_icons = false,
 }
 
+local U = require("catppuccin.utils.colors")
+
 require("catppuccin").setup {
   flavour = "mocha",
   custom_highlights = function (colors)
     return {
-      IlluminatedWordText = { bg = colors.surface2 },
-      IlluminatedWordRead = { bg = colors.surface2 },
+      IlluminatedWordText  = { bg = colors.surface2 },
+      IlluminatedWordRead  = { bg = colors.surface2 },
       IlluminatedWordWrite = { bg = colors.surface2 },
+
+      uiuaRed       = { fg = colors.red      },
+      uiuaOrange    = { fg = colors.peach    },
+      uiuaYellow    = { fg = colors.yellow   },
+      uiuaBeige     = { fg = colors.green    },
+      uiuaGreen     = { fg = colors.green    },
+      uiuaAqua      = { fg = colors.teal     },
+      uiuaBlue      = { fg = colors.blue     },
+      uiuaIndigo    = { fg = colors.blue     },
+      uiuaPurple    = { fg = colors.mauve    },
+      uiuaPink      = { fg = colors.pink     },
+      uiuaLightPink = { fg = colors.pink     },
+      uiuaFaded     = { fg = colors.overlay0 },
+
+      uiuaForeground      = { fg = colors.text     },
+      uiuaForegroundDark  = { fg = colors.overlay0 },
+      uiuaForegroundLight = { fg = colors.text     },
+
+      rainbow1 = { fg = "#ee9598" },
+      rainbow2 = { fg = "#e8b197" },
+      rainbow3 = { fg = "#e8d097" },
+      rainbow4 = { fg = "#9be099" },
+      rainbow5 = { fg = "#97d0e8" },
+      rainbow6 = { fg = "#979ae8" },
+      rainbow7 = { fg = "#ca97e8" },
+
+      Headline1 = { bg = U.blend("#ee9598", colors.base, 0.15) },
+      Headline2 = { bg = U.blend("#e8b197", colors.base, 0.15) },
+      Headline3 = { bg = U.blend("#e8d097", colors.base, 0.15) },
+      Headline4 = { bg = U.blend("#9be099", colors.base, 0.15) },
+      Headline5 = { bg = U.blend("#97d0e8", colors.base, 0.15) },
+      Headline6 = { bg = U.blend("#979ae8", colors.base, 0.15) },
     }
   end,
   color_overrides = {
@@ -174,6 +223,15 @@ require("catppuccin").setup {
     },
   },
 }
+
+vim.cmd [[
+hi link Bullet1 rainbow1
+hi link Bullet2 rainbow2
+hi link Bullet3 rainbow3
+hi link Bullet4 rainbow4
+hi link Bullet5 rainbow5
+hi link Bullet6 rainbow6
+]]
 
 local ff_symbols = { unix = "lf", dos = "crlf", mac = "cr" }
 
@@ -250,12 +308,14 @@ local servers = {
   "mesonlsp",               -- Meson
   "ocamllsp",               -- OCaml
   "purescriptls",           -- Purescript
+  "pylsp",                  -- Python
   "qmlls",                  -- Qt QML
   "solargraph",             -- Ruby
   "rust_analyzer",          -- Rust
   "serve_d",                -- D
   "taplo",                  -- TOML
   "ts_ls",                  -- TS/JS
+  "uiua",                   -- Uiua
   "volar",                  -- Vue
   "wgsl_analyzer",          -- WGSL shaders
   "zls",                    -- Zig
@@ -411,12 +471,37 @@ cmp.setup {
 
 --- bloat ---------------------------------------------------------------------
 
+require("toggleterm").setup {
+  size = 12,
+  open_mapping = [[<Leader>t]],
+  insert_mappings = false,
+  on_open = function ()
+    vim.cmd [[startinsert]]
+  end
+}
+
+require("telescope").setup {
+  defaults = {
+    initial_mode = "normal",
+  }
+}
+
 require("gitsigns").setup {}
 
 require("fidget").setup {
-  text = { spinner = "noise" },
-  window = { blend = 0 },
-  fmt = { max_width = 32, max_messages = 5 },
+  progress = {
+    display = {
+      render_limit = 5,
+      progress_icon = { "noise" },
+    },
+  },
+}
+
+require("headlines").setup {
+  markdown = {
+    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
+    bullet_highlights   = { "Bullet1",   "Bullet2",   "Bullet3",   "Bullet4",   "Bullet5",   "Bullet6"   },
+  }
 }
 
 local session_manager = require "session_manager"

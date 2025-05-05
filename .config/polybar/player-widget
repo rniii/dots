@@ -1,0 +1,17 @@
+#!/bin/fish
+
+playerctl metadata \
+  --follow \
+  --format (printf "{{playerName}}\t{{mpris:artUrl}}\t{{title}} / {{artist}}") |
+while read -d(printf "\t") player art display
+  switch $art
+  case "file://*"
+    set art (node -e 'console.log(url.fileURLToPath(process.argv[1]))' -- $art)
+    ln -sf $art $XDG_RUNTIME_DIR/mpris-art
+  case "http://*" "https://*"
+    curl $art -o $XDG_RUNTIME_DIR/mpris-art
+  end
+
+  echo $player > $XDG_RUNTIME_DIR/active-player
+  echo $display
+end

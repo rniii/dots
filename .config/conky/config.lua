@@ -9,7 +9,6 @@ conky.config = {
   alignment = "top_left",
   font = "Sarasa Term J:size=12",
   font0 = "Sarasa Term J:size=12:style=bold",
-  font1 = "Source Sans 3:size=36:style=bold",
   own_window_argb_value = 250,
   own_window_argb_visual = true,
   own_window_transparent = false,

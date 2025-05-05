@@ -12,11 +12,11 @@ super + 0
     pkill ffmpeg
 
 super + shift + comma
-    playerctl previous
+    playerctl previous -p $(cat $XDG_RUNTIME_DIR/active-player)
 super + shift + slash
-    playerctl play-pause
+    playerctl play-pause -p $(cat $XDG_RUNTIME_DIR/active-player)
 super + shift + period
-    playerctl next
+    playerctl next -p $(cat $XDG_RUNTIME_DIR/active-player)
 
 super + Escape
     pkill -USR1 -x sxhkd

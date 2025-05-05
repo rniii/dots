@@ -1,0 +1,3 @@
+#!/bin/sh
+cantata &
+barriers --disable-crypto --no-tray &

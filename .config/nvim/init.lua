@@ -1,63 +1,62 @@
 require "paq" {
-  "paq-nvim",
-  -- lsp
-  "neovim/nvim-lspconfig",
-  "b0o/schemastore.nvim",
-  -- completion
-  "hrsh7th/nvim-cmp",
-  "hrsh7th/cmp-nvim-lsp",
-  "saadparwaiz1/cmp_luasnip",
-  "L3MON4D3/LuaSnip",
-  -- highlighting
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  "sheerun/vim-polyglot",
-  "RRethy/vim-illuminate",
-  "wuelnerdotexe/vim-astro",
-  "Apeiros-46B/uiua.vim",
-  -- editing stuff
-  "windwp/nvim-autopairs",
-  "windwp/nvim-ts-autotag",
-  "tpope/vim-repeat",
-  "tpope/vim-commentary",
-  "tpope/vim-rsi",
-  "tpope/vim-surround",
-  "tpope/vim-sleuth",
-  "junegunn/vim-easy-align",
-  -- linting
+  --- LSP ------------------------------------------------------------
+  "neovim/nvim-lspconfig", "b0o/schemastore.nvim",
+
+  --- Linting --------------------------------------------------------
   "dense-analysis/ale",
-  -- theme stuff
+
+  --- Completion -----------------------------------------------------
+  "hrsh7th/nvim-cmp",         "hrsh7th/cmp-nvim-lsp",
+  "saadparwaiz1/cmp_luasnip", "L3MON4D3/LuaSnip",
+
+  --- Highlighting ---------------------------------------------------
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  "RRethy/vim-illuminate",
+
+  --- Languages ------------------------------------------------------
+  "sheerun/vim-polyglot", "Apeiros-46B/uiua.vim",
+
+  --- Editing --------------------------------------------------------
+  "windwp/nvim-autopairs", "windwp/nvim-ts-autotag",
+  "tpope/vim-repeat",      "tpope/vim-commentary",
+  "tpope/vim-rsi",         "tpope/vim-surround",
+  "tpope/vim-sleuth",      "tpope/vim-fugitive",
+  "tpope/vim-afterimage",  "junegunn/vim-easy-align",
+
+  --- Theming --------------------------------------------------------
   { "catppuccin/nvim", as = "catppuccin" },
-  "nvim-lualine/lualine.nvim",
-  "akinsho/bufferline.nvim",
-  "Bekaboo/dropbar.nvim",
   "nvim-tree/nvim-web-devicons",
-  "lewis6991/satellite.nvim",
+  "nvim-lualine/lualine.nvim", "akinsho/bufferline.nvim",
+  "Bekaboo/dropbar.nvim",      "lewis6991/satellite.nvim",
   "brenoprata10/nvim-highlight-colors",
-  -- bloat
+  "j-hui/fidget.nvim",
+
+  --- Bloat ----------------------------------------------------------
   "akinsho/toggleterm.nvim",
   "justinmk/vim-dirvish",
-  "tpope/vim-fugitive",
-  "tpope/vim-afterimage",
   "lewis6991/gitsigns.nvim",
   "nvim-lua/plenary.nvim",
   { "nvim-telescope/telescope.nvim", branch = "0.1.x" },
-  "j-hui/fidget.nvim",
   "Shatur/neovim-session-manager",
   "lukas-reineke/headlines.nvim",
 }
 
-vim.cmd[[
-set scrolloff=2 nowrap sidescrolloff=20
+vim.cmd [[
 set expandtab
-set number relativenumber signcolumn=yes
-set cursorline cursorlineopt=line
+
+set nowrap
+set scrolloff=2   sidescrolloff=20
+set textwidth=100 colorcolumn=81,+1
+
+set cul    culopt=line
+set nu rnu signcolumn=yes
+set list   listchars=extends:>,precedes:<,tab:\ \ ,trail:•
+set title  titlestring=%t%(\ (%{fnamemodify(getcwd(),\":~\")})%)%(\ -\ nvim%)
+
 set smartcase ignorecase
 set completeopt=menuone,longest
-set foldmethod=marker nofoldenable
+set nofoldenable foldmethod=marker
 set undofile sessionoptions+=globals
-set textwidth=100 colorcolumn=81,+1
-set title titlestring=%t%(\ (%{fnamemodify(getcwd(),\":~\")})%)%(\ -\ nvim%)
-set list listchars=extends:>,precedes:<,tab:\ \ ,trail:•
 
 let mapleader = ","
 let filetype_i = "nasm"
@@ -102,25 +101,15 @@ let g:ale_fixers = {}
 let g:ale_linters = {}
 
 for [lang, fmt] in [
-\   ['c', 'clang-format'],
-\   ['cpp', 'clang-format'],
-\   ['css', 'prettier'],
-\   ['d', 'dfmt'],
-\   ['elm', 'elm-format'],
-\   ['go', 'gofmt'],
-\   ['haskell', 'fourmolu'],
-\   ['html', 'prettier'],
-\   ['lua', 'stylua'],
-\   ['markdown', 'pandoc'],
-\   ['ocaml', 'ocamlformat'],
-\   ['python', 'black'],
-\   ['reason', 'refmt'],
-\   ['ruby', 'rubocop'],
-\   ['rust', 'rustfmt'],
-\   ['scss', 'prettier'],
-\   ['vue', 'prettier'],
-\   ['yaml', 'prettier'],
-\   ['zig', 'zigfmt']
+\   ['c',       'clang-format'], ['cpp',    'clang-format'],
+\   ['css',     'prettier'],     ['d',      'dfmt'],
+\   ['elm',     'elm-format'],   ['go',     'gofmt'],
+\   ['haskell', 'fourmolu'],     ['html',   'prettier'],
+\   ['lua',     'stylua'],       ['ocaml',  'ocamlformat'],
+\   ['python',  'black'],        ['reason', 'refmt'],
+\   ['ruby',    'rubocop'],      ['rust',   'rustfmt'],
+\   ['scss',    'prettier'],     ['vue',    'prettier'],
+\   ['yaml',    'prettier'],     ['zig',    'zigfmt']
 \ ]
     let g:ale_fixers[lang] = [fmt]
     let g:ale_linters[lang] = []
@@ -141,7 +130,7 @@ let g:ale_haskell_fourmolu_options = '--indentation 2 --indent-wheres true --had
 let g:ale_d_dfmt_options = '--indent_size 2 --brace_style otbs'
 ]]
 
------ theme -------------------------------------------------------------------
+--- Theme ----------------------------------------------------------------------
 
 require("nvim-web-devicons").setup {
   color_icons = false,
@@ -206,25 +195,12 @@ require("catppuccin").setup {
       blue      = "#979ae8",  lavender  = "#979ae8",
       mauve     = "#ca97e8",  rosewater = "#d895ee",
     },
-    latte = {
-      base      = "#f3f7f7",  crust     = "#e6eded",
-      mantle    = "#e6eded",  surface0  = "#e6eded",
-      surface1  = "#a0a4a4",  surface2  = "#a0a4a4",
-      overlay0  = "#909191",  overlay1  = "#909191",
-      overlay2  = "#606363",  text      = "#1e1f1f",
-      subtext0  = "#1e1f1f",  subtext1  = "#1e1f1f",
-      pink      = "#d96fb8",  peach     = "#d96fb8",
-      red       = "#de525e",  maroon    = "#de525e",
-      flamingo  = "#e3ac24",  yellow    = "#e3ac24",
-      green     = "#5bca55",  teal      = "#5bb4c2",
-      sky       = "#5bb4c2",  sapphire  = "#5bb4c2",
-      blue      = "#4e76e0",  lavender  = "#4e76e0",
-      mauve     = "#a448d9",  rosewater = "#a448d9",
-    },
   },
 }
 
 vim.cmd [[
+colorscheme catppuccin
+
 hi link Bullet1 rainbow1
 hi link Bullet2 rainbow2
 hi link Bullet3 rainbow3
@@ -278,11 +254,7 @@ require("satellite").setup {
   },
 }
 
-vim.cmd [[
-colorscheme catppuccin
-
-au TextYankPost * silent! lua vim.highlight.on_yank { higroup = "Visual" }
-]]
+vim.cmd [[au TextYankPost * silent! lua vim.highlight.on_yank { higroup = "Visual" }]]
 
 require("illuminate").configure {
   providers = {"lsp", "treesitter"}
@@ -290,48 +262,19 @@ require("illuminate").configure {
 
 require("nvim-highlight-colors").setup {}
 
------ lsp ---------------------------------------------------------------------
+--- LSP ------------------------------------------------------------------------
+
+local lspconfig = require("lspconfig")
 
 local servers = {
-  "astro",                  -- Astro
-  "ccls",                   -- C
-  "clojure_lsp",            -- Clojure
-  "crystalline",            -- Crystal
-  "csharp_ls",              -- C#
-  "elmls",                  -- Elm
-  "emmet_language_server",  -- HTML (Emmet abbrevs)
-  "erlangls",               -- Erlang
-  "gleam",                  -- Gleam
-  "gopls",                  -- Go
-  "hls",                    -- Haskell
-  "lua_ls",                 -- Lua
-  "mesonlsp",               -- Meson
-  "ocamllsp",               -- OCaml
-  "purescriptls",           -- Purescript
-  "pylsp",                  -- Python
-  "qmlls",                  -- Qt QML
-  "solargraph",             -- Ruby
-  "rust_analyzer",          -- Rust
-  "serve_d",                -- D
-  "taplo",                  -- TOML
-  "ts_ls",                  -- TS/JS
-  "uiua",                   -- Uiua
-  "volar",                  -- Vue
-  "wgsl_analyzer",          -- WGSL shaders
-  "zls",                    -- Zig
-  -- snitched from vscode
-  "cssls",    -- CSS
-  "eslint",   -- TS/JS (eslint)
-  "jsonls",   -- JSON
-  "html",     -- HTML
+  "astro", "ccls", "csharp_ls", "elmls", "emmet_language_server", "gopls",
+  "hls", "lua_ls", "mesonlsp", "ocamllsp", "purescriptls", "pylsp", "qmlls",
+  "rust_analyzer", "serve_d", "taplo", "ts_ls", "uiua", "volar", "zls", "cssls",
+  "eslint", "jsonls", "html",
+  -- "clojure_lsp", "crystalline", "gleam", "erlangls", "solargraph", "wgsl_analyzer",
 }
 
-local settings = {
-  ["haskell"] = {
-    plugin = {
-      -- stan = { globalOn = false }, -- SHUT UP
-    }
-  },
+lspconfig.util.default_config.settings = {
   ["json"] = {
     schemas = require("schemastore").json.schemas(),
     validate = { enable = true },
@@ -347,53 +290,13 @@ local settings = {
   },
 }
 
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+lspconfig.util.default_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 for _, server in ipairs(servers) do
-  lspconfig[server].setup {
-    capabilities = capabilities,
-    settings = settings,
-  }
+  lspconfig[server].setup {}
 end
 
-local function requests(name, get_params, cb)
-  return function()
-    vim.lsp.buf_request_all(0, name, get_params and get_params(), function(res)
-      for _, r in ipairs(res) do
-        if r ~= nil and r.result ~= nil then
-          if cb then cb(r.result) end
-          break
-        end
-      end
-    end)
-  end
-end
-
-vim.keymap.set("n", "<Leader>re", requests(
-  "rust-analyzer/expandMacro", vim.lsp.util.make_position_params,
-  function(r)
-    local text = "// " .. r.name .. "\n" .. r.expansion
-    vim.lsp.util.open_floating_preview(vim.split(text, "\n"), "rust")
-  end
-))
-
-vim.api.nvim_create_user_command("ReloadWorkspace", requests(
-  "rust-analyzer/reloadWorkspace"
-), {})
-
-vim.api.nvim_create_user_command("RebuildProcMacros", requests(
-  "rust-analyzer/reloadWorkspace"
-), {})
-
-vim.keymap.set("n", "<Leader>gp", requests(
-  "experimental/parentModule", vim.lsp.util.make_position_params,
-  function(r)
-    vim.lsp.util.jump_to_location(r[1], "utf-8", true)
-  end
-))
-
---- syntax --------------------------------------------------------------------
+--- Syntax ---------------------------------------------------------------------
 
 vim.diagnostic.config {
   virtual_text = { prefix = "･" },
@@ -416,27 +319,27 @@ require("nvim-treesitter.configs").setup {
 
 vim.treesitter.language.register("ruby", "crystal")
 
---- completion ----------------------------------------------------------------
+--- Completion -----------------------------------------------------------------
 
-local npairs = require "nvim-autopairs"
+local npairs = require("nvim-autopairs")
 
 npairs.setup { check_ts = true }
 npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
 
-local cmp = require "cmp"
-local luasnip = require "luasnip"
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
 cmp.setup {
   snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
   mapping = {
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+    ['<C-f>']     = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm(),
+    ['<C-e>']     = cmp.mapping.abort(),
+    ['<CR>']      = cmp.mapping.confirm(),
     ['<C-j>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable() then
         luasnip.jump()
@@ -469,7 +372,7 @@ cmp.setup {
   sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
 }
 
---- bloat ---------------------------------------------------------------------
+--- Bloat ----------------------------------------------------------------------
 
 require("toggleterm").setup {
   size = 12,
@@ -504,8 +407,7 @@ require("headlines").setup {
   }
 }
 
-local session_manager = require "session_manager"
-session_manager.setup {
+require("session_manager").setup {
   autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
 }
 
@@ -516,6 +418,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         return
       end
     end
-    session_manager.save_current_session()
+    require("session_manager").save_current_session()
   end
 })

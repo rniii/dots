@@ -61,7 +61,7 @@ if status is-interactive
     and set -gx COLORTERM truecolor
 
   # drop back to last directory
-  set -l lastpid (pidof fish | string split " ")[3]
+  set -l lastpid (pidof fish | string split " ")[2]
     and test -n $lastpid
     and cd (realpath /proc/$lastpid/cwd 2>/dev/null)
 
@@ -72,6 +72,7 @@ if status is-interactive
   alias lazydots="lazygit --git-dir ~/.notgit --work-tree ~"
 
   alias cat="command bat -pp"
+  alias objdump="objdump -M intel"
 
   eval "$(dircolors --csh)"
 end

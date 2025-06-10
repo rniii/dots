@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export SXHKD_SHELL=sh
+
 pkill -x sxhkd >/dev/null
 pkill -x polybar >/dev/null
 pkill -x conky >/dev/null
@@ -8,13 +10,11 @@ sxhkd &
 polybar cat -q &
 cd ~/.config/conky && {
   conky --config conky.conf &
-  conky --config cal.conf &
+  LC_ALL=ja_JP.utf8 conky --config cal.conf &
 }
 
 fcitx5 -d &
 [ -f ~/.xkeymap ] && (sleep 5 && xkbcomp ~/.xkeymap "$DISPLAY")&
-xsetwacom set "Wacom Intuos S Pen stylus" Area 0 475 15200 9025
-xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key +ctrl z -ctrl"
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 
@@ -25,12 +25,11 @@ bspc config ignore_ewmh_focus true
 bspc config honor_size_hints  true
 bspc config automatic_scheme  alternate
 
-bspc rule -a floorp               "desktop=^2"
-bspc rule -a firefox              "desktop=^2"
-bspc rule -a org.squidowl.halloy  "desktop=^3"
-bspc rule -a vesktop              "desktop=^3"
-bspc rule -a cantata              "desktop=^4"
-bspc rule -a thunderbird          "desktop=^4"
+bspc rule -a floorp      "desktop=^2"
+bspc rule -a firefox     "desktop=^2"
+bspc rule -a vesktop     "desktop=^3"
+bspc rule -a cantata     "desktop=^4"
+bspc rule -a thunderbird "desktop=^4"
 
 bspc desktop "^3" -l monocle
 bspc desktop "^4" -l monocle

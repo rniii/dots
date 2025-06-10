@@ -1,3 +1,10 @@
 #!/bin/sh
 cantata &
+
 barriers --disable-crypto --no-tray &
+
+xinput set-prop "TPPS/2 IBM TrackPoint" "libinput Accel Speed" 0.6
+xinput set-prop "TPPS/2 IBM TrackPoint" "libinput Accel Profile Enabled" 0 1 0
+
+xsetwacom set "Wacom Intuos S Pen stylus" Area 0 475 15200 9025
+xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key +ctrl z -ctrl"

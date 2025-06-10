@@ -2,6 +2,7 @@
 
 playerctl metadata \
   --follow \
+  --player cantata \
   --format (printf "{{playerName}}\t{{mpris:artUrl}}\t{{title}} / {{artist}}") |
 while read -d(printf "\t") player art display
   switch $art

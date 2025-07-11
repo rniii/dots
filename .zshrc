@@ -47,7 +47,7 @@ PS2='%F{0}${vcs_info_msg_0_}%n %F{8}%1~ \ %f'
 export BAT_THEME=ansi
 export BAT_STYLE=header,numbers,changes
 
-[ -n SSH_CONNECTION ] &&
+[ -n "$SSH_CONNECTION" ] &&
 export COLORTERM=truecolor
 
 alias ls="ls --color=auto -vh --group-directories-first"
@@ -64,5 +64,4 @@ eval "$(dircolors)"
 eval "$(zoxide init zsh)"
 
 local last_path="$(realpath /proc/${$(pidof zsh)[3]}/cwd)"
-[ -d "$last_path" ] &&
-cd "$last_path"
+if [[ -d "$last_path" ]] { cd "$last_path" }

@@ -30,6 +30,7 @@ bspc rule -a firefox     "desktop=^2"
 bspc rule -a vesktop     "desktop=^3"
 bspc rule -a cantata     "desktop=^4"
 bspc rule -a thunderbird "desktop=^4"
+bspc rule -a steam       "desktop=^4"
 
 bspc desktop "^3" -l monocle
 bspc desktop "^4" -l monocle

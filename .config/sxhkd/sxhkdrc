@@ -8,6 +8,8 @@ super + o
     dunstctl close
 super + p
     flameshot gui
+super + shift + p
+    flameshot screen -c -p ~/Pictures/Screenshots
 super + 0
     pkill ffmpeg
 

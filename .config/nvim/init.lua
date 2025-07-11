@@ -90,7 +90,7 @@ require("catppuccin").setup {
     mocha = {
       base      = "#121212",  crust     = "#181818",
       mantle    = "#181818",  surface0  = "#181818",
-      surface1  = "#303030",  surface2  = "#303030",
+      surface1  = "#404040",  surface2  = "#404040",
       overlay0  = "#909090",  overlay1  = "#909090",
       overlay2  = "#909090",  text      = "#d8d0d5",
       subtext0  = "#d8d0d5",  subtext1  = "#d8d0d5",
@@ -290,7 +290,7 @@ tnoremap <C-w>k <C-\><C-N><C-w>k
 tnoremap <C-w>l <C-\><C-N><C-w>l
 
 map <Leader>f <Cmd>Conform<CR>
-autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <Leader>f <Cmd>EslintFixAll<CR><Cmd>Conform<CR>
+autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <Leader>f <Cmd>silent! EslintFixAll<CR><Cmd>Conform<CR>
 
 autocmd FileType cpp setlocal commentstring=//\ %s
 ]]
@@ -345,7 +345,7 @@ cmp.setup {
 require("headlines").setup {
   markdown = {
     headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
-    bullet_highlights   = { "Bullet1",   "Bullet2",   "Bullet3",   "Bullet4",   "Bullet5",   "Bullet6"   },
+    bullet_highlights = { "Bullet1", "Bullet2", "Bullet3", "Bullet4", "Bullet5", "Bullet6" },
   }
 }
 

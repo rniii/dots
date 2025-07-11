@@ -16,7 +16,7 @@ style = "Regular"
 family = "Sarasa Term J"
 
 [window]
-opacity = 0.96
+opacity = 0.90
 padding = { x = 4, y = 4 }
 
 [cursor.style]
@@ -24,3 +24,6 @@ blinking = "On"
 
 [colors]
 transparent_background_colors = true
+
+[terminal]
+shell = "zsh"

@@ -1,0 +1,53 @@
+e scr.utf8.curvy=true
+
+ec comment rgb:909090
+ec usrcmt rgb:909090
+
+ec reg rgb:d8d0d5
+ec creg rgb:d8d0d5
+
+ec args rgb:ee9598
+ec invalid rgb:ee9598
+ec ret rgb:ee9598
+ec trap rgb:ee9598
+ec nop rgb:ee9598
+
+ec flow2 rgb:e8b197
+
+ec math rgb:e8d097
+ec bin rgb:e8d097
+ec cmp rgb:e8d097
+ec var.name rgb:e8d097
+
+ec help rgb:9be099
+ec btext rgb:9be099
+
+ec flow rgb:979ae8
+ec fname rgb:979ae8
+ec ai.write rgb:979ae8
+ec graph.box2 rgb:979ae8
+ec graph.current rgb:979ae8
+
+ec floc rgb:97d0e8
+ec fline rgb:97d0e8
+ec flag rgb:97d0e8
+ec label rgb:97d0e8
+ec other rgb:97d0e8
+
+ec swi rgb:ca97e8
+ec mov rgb:ca97e8
+ec push rgb:ca97e8
+ec pop rgb:ca97e8
+ec jmp rgb:ca97e8
+ec cjmp rgb:ca97e8
+ec call rgb:ca97e8
+ec ucall rgb:ca97e8
+ec ujmp rgb:ca97e8
+
+ec num rgb:ee95d2
+ec offset rgb:ee95d2
+
+ec prompt rgb:d895ee
+ec b0x00 rgb:d8d0d5
+ec b0x7f rgb:ee95d2
+ec b0xff rgb:ee95d2

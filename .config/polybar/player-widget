@@ -1,18 +1,19 @@
-#!/bin/fish
+#!/bin/sh
 
 playerctl metadata \
   --follow \
-  --player cantata \
-  --format (printf "{{playerName}}\t{{mpris:artUrl}}\t{{title}} / {{artist}}") |
-while read -d(printf "\t") player art display
-  switch $art
-  case "file://*"
-    set art (node -e 'console.log(url.fileURLToPath(process.argv[1]))' -- $art)
-    ln -sf $art $XDG_RUNTIME_DIR/mpris-art
-  case "http://*" "https://*"
-    curl $art -o $XDG_RUNTIME_DIR/mpris-art
-  end
+  --format "$(printf "{{title}} / {{artist}}\t{{playerName}}\t{{mpris:artUrl}}")" |
+while IFS=$(printf "\t") read -r display player art; do
+  case "$art" in
+    file://*)
+      art=$(node -e 'console.log(url.fileURLToPath(process.argv[1]))' -- "$art")
+      ln -sf "$art" "$XDG_RUNTIME_DIR/mpris-art"
+    ;;
+    http://*|https://*)
+      curl "$art" -o "$XDG_RUNTIME_DIR/mpris-art"
+    ;;
+  esac
 
-  echo $player > $XDG_RUNTIME_DIR/active-player
-  echo $display
-end
+  echo "$player" > "$XDG_RUNTIME_DIR/active-player"
+  echo "$display"
+done

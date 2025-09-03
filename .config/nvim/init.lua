@@ -20,7 +20,6 @@ vim.g.mapleader = ","
 
 --- Plugins --------------------------------------------------------------- {{{1
 require "paq" {
-  { "catppuccin/nvim", as = "catppuccin" }, -- TODO: not catppuccin
   "nvim-tree/nvim-web-devicons",
 
   "nvim-lualine/lualine.nvim", "akinsho/bufferline.nvim",
@@ -48,73 +47,17 @@ require "paq" {
   "justinmk/vim-dirvish",
   "nvim-lua/plenary.nvim",
   "Shatur/neovim-session-manager",
-  "lukas-reineke/headlines.nvim",
+  { "nvim-telescope/telescope.nvim", branch = "0.1.x" },
 }
 
 --- Theme ----------------------------------------------------------------- {{{1
-local function custom_highlights(colors)
-  local blend = require("catppuccin.utils.colors").blend
-
-  local highlights = {
-    IlluminatedWordText  = { bg = colors.surface2 },
-    IlluminatedWordRead  = { bg = colors.surface2 },
-    IlluminatedWordWrite = { bg = colors.surface2 },
-
-    uiuaRed       = { fg = colors.red    }, uiuaOrange = { fg = colors.peach    },
-    uiuaYellow    = { fg = colors.yellow }, uiuaBeige  = { fg = colors.green    },
-    uiuaGreen     = { fg = colors.green  }, uiuaAqua   = { fg = colors.teal     },
-    uiuaBlue      = { fg = colors.blue   }, uiuaIndigo = { fg = colors.blue     },
-    uiuaPurple    = { fg = colors.mauve  }, uiuaPink   = { fg = colors.pink     },
-    uiuaLightPink = { fg = colors.pink   }, uiuaFaded  = { fg = colors.overlay0 },
-
-    uiuaForeground      = { fg = colors.text     },
-    uiuaForegroundDark  = { fg = colors.overlay0 },
-    uiuaForegroundLight = { fg = colors.text     },
-  }
-
-  for i, color in ipairs {
-    "#ee9598","#e8b197","#e8d097","#9be099","#97d0e8","#979ae8","#ca97e8"
-  } do
-    highlights["rainbow"  .. i] = { fg = color }
-    highlights["Bullet"   .. i] = { fg = color }
-    highlights["Headline" .. i] = { bg = blend(color, colors.base, 0.15) }
-  end
-
-  return highlights
-end
-
-require("catppuccin").setup {
-  flavour = "mocha",
-  custom_highlights = custom_highlights,
-  color_overrides = {
-    mocha = {
-      base      = "#121212",  crust     = "#181818",
-      mantle    = "#181818",  surface0  = "#181818",
-      surface1  = "#404040",  surface2  = "#404040",
-      overlay0  = "#909090",  overlay1  = "#909090",
-      overlay2  = "#909090",  text      = "#d8d0d5",
-      subtext0  = "#d8d0d5",  subtext1  = "#d8d0d5",
-      pink      = "#ee95d2",  peach     = "#ee95d2",
-      red       = "#ee9598",  maroon    = "#ee9598",
-      flamingo  = "#e8d097",  yellow    = "#e8d097",
-      green     = "#9be099",  teal      = "#97d0e8",
-      sky       = "#97d0e8",  sapphire  = "#97d0e8",
-      blue      = "#979ae8",  lavender  = "#979ae8",
-      mauve     = "#ca97e8",  rosewater = "#d895ee",
-    },
-  },
-}
-
-vim.cmd.colorscheme "catppuccin"
-
-vim.cmd [[au TextYankPost * silent! lua vim.hl.on_yank { higroup = "Visual" }]]
+vim.cmd.colorscheme "thorns"
 
 require("nvim-web-devicons").setup { color_icons = false }
 
 --- UI -------------------------------------------------------------------- {{{1
 vim.diagnostic.config {
   virtual_text = { prefix = "･" },
-  float = { prefix = function (d) return d.source .. " " end },
   severity_sort = true,
 }
 
@@ -132,6 +75,7 @@ end
 
 require("lualine").setup {
   options = {
+    theme = "thorns",
     section_separators = " ",
     component_separators = "",
   },
@@ -146,7 +90,6 @@ require("lualine").setup {
 }
 
 require("bufferline").setup {
-  highlights = require("catppuccin.groups.integrations.bufferline").get(),
   options = {
     indicator = { style = "none" },
     diagnostics = "nvim_lsp",
@@ -170,6 +113,12 @@ require("fidget").setup {
       render_limit = 5,
       progress_icon = { "noise" },
     },
+  },
+}
+
+require("telescope").setup {
+  defaults = {
+    initial_mode = "normal",
   },
 }
 
@@ -201,10 +150,6 @@ require("nvim-highlight-colors").setup {}
 local lspconfig = require "lspconfig"
 
 lspconfig.util.default_config.settings = {
-  ["json"] = {
-    schemas = require("schemastore").json.schemas(),
-    validate = { enable = true },
-  },
   ["rust-analyzer"] = {
     check = { command = "clippy" },
     imports = {
@@ -216,17 +161,39 @@ lspconfig.util.default_config.settings = {
   },
 }
 
-lspconfig.util.default_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- lspconfig.util.default_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-for _, server in ipairs {
-  "csharp_ls", "emmet_language_server", "purescriptls", "rust_analyzer",
+vim.lsp.enable {
+  "csharp_ls", "emmet_language_server", "kotlin_lsp", "purescriptls", "rust_analyzer",
   ----------- ----------- ----------- ----------- ----------- ----------- -----------
-  "astro",    "ccls",     "elmls",    "gopls",    "hls",      "lua_ls",   "mesonlsp",
-  "ocamllsp", "ols",      "pylsp",    "qmlls",    "serve_d",  "taplo",    "ts_ls",
-  "uiua",     "volar",    "zls",      "cssls",    "eslint",   "jsonls",   "html",
-} do
-  lspconfig[server].setup {}
-end
+  "astro",    "ccls",     "efm",      "elmls",    "gopls",    "hls",      "lua_ls",
+  "mesonlsp", "ocamllsp", "ols",      "pylsp",    "qmlls",    "serve_d",  "taplo",
+  "ts_ls",    "uiua",     "volar",    "zls",      "cssls",    "eslint",   "jsonls",
+  "html",
+}
+
+vim.lsp.config("efm", {
+  filetypes = { "sh", "bash", "zsh" },
+  settings = {
+    languages = {
+      sh = {
+        {
+          lintCommand = "shellcheck -f gcc -x",
+          lintSource = "shellcheck",
+          lintFormats = { "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m" },
+          lintIgnoreExitCode = true,
+        },
+      }
+    }
+  }
+})
+
+vim.lsp.config("jsonls", {
+  settings = { json = { validate = { enable = true } } },
+  before_init = function (_, config)
+    config.settings.json.schemas = require("schemastore").json.schemas()
+  end
+})
 
 --- Editing --------------------------------------------------------------- {{{1
 local npairs = require "nvim-autopairs"
@@ -342,13 +309,6 @@ cmp.setup {
 }
 
 --- Other ----------------------------------------------------------------- {{{1
-require("headlines").setup {
-  markdown = {
-    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
-    bullet_highlights = { "Bullet1", "Bullet2", "Bullet3", "Bullet4", "Bullet5", "Bullet6" },
-  }
-}
-
 require("session_manager").setup {
   autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
 }

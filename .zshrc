@@ -35,7 +35,7 @@ autoload -Uz vcs_info
 
 set_title() { printf "\e]2;%s\a" "$1" }
 
-precmd() { set_title "zsh ($PWD)"; vcs_info }
+precmd() { set_title "$(print -Pn "zsh (%~)")"; vcs_info }
 preexec() { set_title "$1" }
 
 PS1='%F{#fbe8f5}${vcs_info_msg_0_}%F{#ee95d2}%n %F{#f5c0e4}%1~ %(?.%F{#fbe8f5}%#.%F{red}!) %f'
@@ -59,6 +59,8 @@ alias cat="bat -pp"
 alias objdump="objdump -M intel"
 
 alias ssh="TERM=xterm-256color ssh"
+
+alias fuck="systemctl --user restart wireplumber"
 
 eval "$(dircolors)"
 eval "$(zoxide init zsh)"

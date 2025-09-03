@@ -22,8 +22,5 @@ padding = { x = 4, y = 4 }
 [cursor.style]
 blinking = "On"
 
-[colors]
-transparent_background_colors = true
-
 [terminal]
 shell = "zsh"
